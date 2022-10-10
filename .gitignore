@@ -36,3 +36,4 @@ build/
 *.key
 *.pub
 *.json
+application.properties

@@ -2,11 +2,15 @@
 package com.cookiebot.COOKIEBOTbackend.endpoint.domain;
 
 import java.io.Serializable;
+
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+@JsonView(Views.User.class)
 @Document
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;

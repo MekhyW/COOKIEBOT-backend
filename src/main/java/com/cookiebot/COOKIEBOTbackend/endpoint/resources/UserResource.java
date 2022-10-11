@@ -1,17 +1,18 @@
 package com.cookiebot.COOKIEBOTbackend.endpoint.resources;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookiebot.COOKIEBOTbackend.dao.services.UserService;
 import com.cookiebot.COOKIEBOTbackend.endpoint.domain.User;
-import com.cookiebot.COOKIEBOTbackend.endpoint.dto.UserDTO;
+import com.cookiebot.COOKIEBOTbackend.endpoint.domain.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value="/users")
@@ -21,10 +22,16 @@ public class UserResource {
 	private UserService service;
 
 	// Accessible with localhost:8080/users
-	@GetMapping
-	public ResponseEntity<List<UserDTO>> findAll() {
+	@RequestMapping(method=RequestMethod.GET)
+	@JsonView(Views.User.class)
+	public ResponseEntity<List<User>> findAll() {
 		List<User> list = service.findAll();
-		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<User> findById(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }

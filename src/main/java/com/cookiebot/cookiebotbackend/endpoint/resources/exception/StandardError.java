@@ -1,4 +1,4 @@
-package com.cookiebot.COOKIEBOTbackend.endpoint.resources.exception;
+package com.cookiebot.cookiebotbackend.endpoint.resources.exception;
 
 import java.io.Serializable;
 

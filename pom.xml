@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cookiebot</groupId>
-	<artifactId>COOKIEBOT-backend</artifactId>
+	<artifactId>cookiebot-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>COOKIEBOT-backend</name>
+	<name>cookiebot-backend</name>
 	<description>Data management and scheduler backend for the Cookiebot and Bombot Telegram bots</description>
 	<properties>
 		<java.version>17</java.version>
@@ -61,5 +61,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
 </project>

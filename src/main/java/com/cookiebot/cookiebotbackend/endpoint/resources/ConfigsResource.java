@@ -1,4 +1,4 @@
-package com.cookiebot.COOKIEBOTbackend.endpoint.resources;
+package com.cookiebot.cookiebotbackend.endpoint.resources;
 
 import java.net.URI;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.COOKIEBOTbackend.core.domain.Configs;
-import com.cookiebot.COOKIEBOTbackend.dao.services.ConfigsService;
+import com.cookiebot.cookiebotbackend.core.domain.Configs;
+import com.cookiebot.cookiebotbackend.dao.services.ConfigsService;
 
 @RestController
 @RequestMapping(value="/configs")

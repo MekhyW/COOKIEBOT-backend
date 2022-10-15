@@ -1,12 +1,12 @@
-package com.cookiebot.COOKIEBOTbackend.endpoint.resources.exception;
+package com.cookiebot.cookiebotbackend.endpoint.resources.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.cookiebot.COOKIEBOTbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.COOKIEBOTbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 

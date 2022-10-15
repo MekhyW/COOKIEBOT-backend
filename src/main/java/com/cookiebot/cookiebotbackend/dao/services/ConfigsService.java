@@ -1,14 +1,14 @@
-package com.cookiebot.COOKIEBOTbackend.dao.services;
+package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cookiebot.COOKIEBOTbackend.core.domain.Configs;
-import com.cookiebot.COOKIEBOTbackend.core.repository.ConfigsRepository;
-import com.cookiebot.COOKIEBOTbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.COOKIEBOTbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.core.domain.Configs;
+import com.cookiebot.cookiebotbackend.core.repository.ConfigsRepository;
+import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
 
 @Service
 public class ConfigsService {

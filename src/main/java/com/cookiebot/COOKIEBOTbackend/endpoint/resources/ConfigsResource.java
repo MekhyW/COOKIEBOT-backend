@@ -14,12 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cookiebot.COOKIEBOTbackend.dao.services.ConfigsService;
 import com.cookiebot.COOKIEBOTbackend.endpoint.domain.configs.Configs;
-import com.cookiebot.COOKIEBOTbackend.endpoint.domain.configs.ConfigsViews;
-import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value="/configs")
-@JsonView(ConfigsViews.Configs.class)
 public class ConfigsResource {
 
 	@Autowired

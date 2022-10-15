@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.cookiebot.COOKIEBOTbackend.core.domain.Configs;
 import com.cookiebot.COOKIEBOTbackend.dao.services.ConfigsService;
-import com.cookiebot.COOKIEBOTbackend.endpoint.domain.configs.Configs;
 
 @RestController
 @RequestMapping(value="/configs")

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cookiebot.COOKIEBOTbackend.core.domain.Configs;
 import com.cookiebot.COOKIEBOTbackend.core.repository.ConfigsRepository;
 import com.cookiebot.COOKIEBOTbackend.dao.services.exception.ObjectNotFoundException;
-import com.cookiebot.COOKIEBOTbackend.endpoint.domain.configs.Configs;
 
 @Service
 public class ConfigsService {

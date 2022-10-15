@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cookiebot.COOKIEBOTbackend.core.domain.Configs;
 import com.cookiebot.COOKIEBOTbackend.core.repository.ConfigsRepository;
+import com.cookiebot.COOKIEBOTbackend.dao.services.exception.BadRequestException;
 import com.cookiebot.COOKIEBOTbackend.dao.services.exception.ObjectNotFoundException;
 
 @Service
@@ -25,6 +26,10 @@ public class ConfigsService {
 	}
 	
 	public Configs insert(Configs obj) {
+		Configs searchId = repo.findById(obj.getId()).orElse(null);
+		if (searchId != null) {
+			throw new BadRequestException("ID Já existe");
+		}
 		return repo.insert(obj);
 	}
 	

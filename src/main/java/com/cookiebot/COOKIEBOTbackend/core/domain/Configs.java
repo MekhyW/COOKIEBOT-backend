@@ -1,7 +1,6 @@
 package com.cookiebot.COOKIEBOTbackend.core.domain;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -108,22 +107,5 @@ public class Configs implements Serializable {
 
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Configs other = (Configs) obj;
-		return Objects.equals(id, other.id);
 	}
 }

@@ -21,14 +21,14 @@ public class ConfigsService {
 	}
 	
 	public Configs findById(String id) {
-		Configs configs = repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("ID do objeto não encontrada"));
+		Configs configs = repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Id not found!"));
 		return configs;
 	}
 	
 	public Configs insert(Configs obj) {
 		Configs searchId = repo.findById(obj.getId()).orElse(null);
 		if (searchId != null) {
-			throw new BadRequestException("ID Já existe");
+			throw new BadRequestException("Id already exists!");
 		}
 		return repo.insert(obj);
 	}
@@ -39,7 +39,7 @@ public class ConfigsService {
 	}
 	
 	public Configs update(Configs obj) {
-		Configs newObj = repo.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundException("ID do objeto não encontrada"));
+		Configs newObj = repo.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Id not found!"));
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -49,24 +49,24 @@ public class ConfigsService {
 			newObj.setFurbots(obj.getFurbots());
 		}
 		
-		if (obj.getSticker_spam_limit() != null) {
-			newObj.setSticker_spam_limit(obj.getSticker_spam_limit());
+		if (obj.getStickerSpamLimit() != null) {
+			newObj.setStickerSpamLimit(obj.getStickerSpamLimit());
 		}
 		
-		if (obj.getTempo_sem_poder_mandar_mensagem() != null) {
-			newObj.setTempo_sem_poder_mandar_mensagem(obj.getTempo_sem_poder_mandar_mensagem());
+		if (obj.getTimeWithoutSendingImages() != null) {
+			newObj.setTimeWithoutSendingImages(obj.getTimeWithoutSendingImages());
 		}
 		
-		if (obj.getTempo_captcha() != null) {
-			newObj.setTempo_captcha(obj.getTempo_captcha());
+		if (obj.getTimeCaptcha() != null) {
+			newObj.setTimeCaptcha(obj.getTimeCaptcha());
 		}
 		
-		if (obj.getFuncoes_diversao() != null) {
-			newObj.setFuncoes_diversao(obj.getFuncoes_diversao());
+		if (obj.getFunctionsFun() != null) {
+			newObj.setFunctionsFun(obj.getFunctionsFun());
 		}
 		
-		if (obj.getFuncoes_utilidade() != null) {
-			newObj.setFuncoes_utilidade(obj.getFuncoes_utilidade());
+		if (obj.getFunctionsUtility() != null) {
+			newObj.setFunctionsUtility(obj.getFunctionsUtility());
 		}
 		
 		if (obj.getSfw() != null) {

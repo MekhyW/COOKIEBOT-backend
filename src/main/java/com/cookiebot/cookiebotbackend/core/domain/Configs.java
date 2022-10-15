@@ -5,34 +5,34 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "configs")
 public class Configs implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private String id;
 	private Boolean furbots;
-	private String sticker_spam_limit;
-	private Integer tempo_sem_poder_mandar_mensagem;
-	private Integer tempo_captcha;
-	private Boolean funcoes_diversao;
-	private Boolean funcoes_utilidade;
+	private String stickerSpamLimit;
+	private Integer timeWithoutSendingImages;
+	private Integer timeCaptcha;
+	private Boolean functionsFun;
+	private Boolean functionsUtility;
 	private Boolean sfw;
 	private String language;
 	
 	public Configs() {	
 	}
 
-	public Configs(String id, Boolean furbots, String sticker_spam_limit, Integer tempo_sem_poder_mandar_mensagem,
-			Integer tempo_captcha, Boolean funcoes_diversao, Boolean funcoes_utilidade, Boolean sfw, String language) {
+	public Configs(String id, Boolean furbots, String stickerSpamLimit, Integer timeWithoutSendingImages,
+			Integer timeCaptcha, Boolean functionsFun, Boolean functionsUtility, Boolean sfw, String language) {
 		super();
 		this.id = id;
 		this.furbots = furbots;
-		this.sticker_spam_limit = sticker_spam_limit;
-		this.tempo_sem_poder_mandar_mensagem = tempo_sem_poder_mandar_mensagem;
-		this.tempo_captcha = tempo_captcha;
-		this.funcoes_diversao = funcoes_diversao;
-		this.funcoes_utilidade = funcoes_utilidade;
+		this.stickerSpamLimit = stickerSpamLimit;
+		this.timeWithoutSendingImages = timeWithoutSendingImages;
+		this.timeCaptcha = timeCaptcha;
+		this.functionsFun = functionsFun;
+		this.functionsUtility = functionsUtility;
 		this.sfw = sfw;
 		this.language = language;
 	}
@@ -53,44 +53,44 @@ public class Configs implements Serializable {
 		this.furbots = furbots;
 	}
 
-	public String getSticker_spam_limit() {
-		return sticker_spam_limit;
+	public String getStickerSpamLimit() {
+		return stickerSpamLimit;
 	}
 
-	public void setSticker_spam_limit(String sticker_spam_limit) {
-		this.sticker_spam_limit = sticker_spam_limit;
+	public void setStickerSpamLimit(String stickerSpamLimit) {
+		this.stickerSpamLimit = stickerSpamLimit;
 	}
 
-	public Integer getTempo_sem_poder_mandar_mensagem() {
-		return tempo_sem_poder_mandar_mensagem;
+	public Integer getTimeWithoutSendingImages() {
+		return timeWithoutSendingImages;
 	}
 
-	public void setTempo_sem_poder_mandar_mensagem(Integer tempo_sem_poder_mandar_mensagem) {
-		this.tempo_sem_poder_mandar_mensagem = tempo_sem_poder_mandar_mensagem;
+	public void setTimeWithoutSendingImages(Integer timeWithoutSendingImages) {
+		this.timeWithoutSendingImages = timeWithoutSendingImages;
 	}
 
-	public Integer getTempo_captcha() {
-		return tempo_captcha;
+	public Integer getTimeCaptcha() {
+		return timeCaptcha;
 	}
 
-	public void setTempo_captcha(Integer tempo_captcha) {
-		this.tempo_captcha = tempo_captcha;
+	public void setTimeCaptcha(Integer timeCaptcha) {
+		this.timeCaptcha = timeCaptcha;
 	}
 
-	public Boolean getFuncoes_diversao() {
-		return funcoes_diversao;
+	public Boolean getFunctionsFun() {
+		return functionsFun;
 	}
 
-	public void setFuncoes_diversao(Boolean funcoes_diversao) {
-		this.funcoes_diversao = funcoes_diversao;
+	public void setFunctionsFun(Boolean functionsFun) {
+		this.functionsFun = functionsFun;
 	}
 
-	public Boolean getFuncoes_utilidade() {
-		return funcoes_utilidade;
+	public Boolean getFunctionsUtility() {
+		return functionsUtility;
 	}
 
-	public void setFuncoes_utilidade(Boolean funcoes_utilidade) {
-		this.funcoes_utilidade = funcoes_utilidade;
+	public void setFunctionsUtility(Boolean functionsUtility) {
+		this.functionsUtility = functionsUtility;
 	}
 
 	public Boolean getSfw() {

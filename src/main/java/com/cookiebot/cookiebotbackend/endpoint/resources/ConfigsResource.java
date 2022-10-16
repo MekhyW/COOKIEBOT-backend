@@ -48,7 +48,7 @@ public class ConfigsResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Configs obj, @PathVariable String id) {
+	private ResponseEntity<Void> update(@RequestBody Configs obj, @PathVariable String id) {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

@@ -35,9 +35,9 @@ public class ConfigsResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Configs> insert(@RequestBody Configs obj) {
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	public ResponseEntity<Configs> insert(@RequestBody Configs configs) {
+		configs = service.insert(configs);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(configs.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -48,9 +48,9 @@ public class ConfigsResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	private ResponseEntity<Void> update(@RequestBody Configs obj, @PathVariable String id) {
-		obj.setId(id);
-		obj = service.update(obj);
+	private ResponseEntity<Void> update(@RequestBody Configs configs, @PathVariable String id) {
+		configs.setId(id);
+		configs = service.update(configs);
 		return ResponseEntity.noContent().build();
 	}
 }

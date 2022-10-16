@@ -36,9 +36,9 @@ public class RegistersResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Registers> insert(@RequestBody Registers obj) {
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+	public ResponseEntity<Registers> insert(@RequestBody Registers registers) {
+		registers = service.insert(registers);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(registers.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -48,15 +48,21 @@ public class RegistersResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/users/{id}", method=RequestMethod.POST)
-	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegisters obj) {
-		service.insertUser(id, obj);
+	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
+	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+		service.insertUser(id, userRegisters);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/users/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegisters obj) {
-		service.deleteUser(id, obj);
+	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+		service.deleteUser(id, userRegisters);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
+	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+		service.updateUser(id, userRegisters);
 		return ResponseEntity.noContent().build();
 	}
 }

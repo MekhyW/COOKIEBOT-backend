@@ -21,16 +21,17 @@ public class ConfigsService {
 	}
 	
 	public Configs findById(String id) {
-		Configs configs = repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Id not found!"));
+		Configs configs = repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return configs;
 	}
 	
-	public Configs insert(Configs obj) {
-		Configs searchId = repo.findById(obj.getId()).orElse(null);
-		if (searchId != null) {
-			throw new BadRequestException("Id already exists!");
+	public Configs insert(Configs configs) {
+		Configs searchId = repo.findById(configs.getId()).orElse(null);
+		if (searchId == null) {
+			return repo.insert(configs);
+		} else {
+			throw new BadRequestException("ID Already Exists");
 		}
-		return repo.insert(obj);
 	}
 	
 	public void delete(String id) {
@@ -38,43 +39,43 @@ public class ConfigsService {
 		repo.deleteById(id);
 	}
 	
-	public Configs update(Configs obj) {
-		Configs newObj = repo.findById(obj.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Id not found!"));
-		updateData(newObj, obj);
+	public Configs update(Configs configs) {
+		Configs newObj = repo.findById(configs.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		updateData(newObj, configs);
 		return repo.save(newObj);
 	}
 
-	private void updateData(Configs newObj, Configs obj) {
-		if (obj.getFurbots() != null) {
-			newObj.setFurbots(obj.getFurbots());
+	private void updateData(Configs newObj, Configs configs) {
+		if (configs.getFurbots() != null) {
+			newObj.setFurbots(configs.getFurbots());
 		}
 		
-		if (obj.getStickerSpamLimit() != null) {
-			newObj.setStickerSpamLimit(obj.getStickerSpamLimit());
+		if (configs.getStickerSpamLimit() != null) {
+			newObj.setStickerSpamLimit(configs.getStickerSpamLimit());
 		}
 		
-		if (obj.getTimeWithoutSendingImages() != null) {
-			newObj.setTimeWithoutSendingImages(obj.getTimeWithoutSendingImages());
+		if (configs.getTimeWithoutSendingImages() != null) {
+			newObj.setTimeWithoutSendingImages(configs.getTimeWithoutSendingImages());
 		}
 		
-		if (obj.getTimeCaptcha() != null) {
-			newObj.setTimeCaptcha(obj.getTimeCaptcha());
+		if (configs.getTimeCaptcha() != null) {
+			newObj.setTimeCaptcha(configs.getTimeCaptcha());
 		}
 		
-		if (obj.getFunctionsFun() != null) {
-			newObj.setFunctionsFun(obj.getFunctionsFun());
+		if (configs.getFunctionsFun() != null) {
+			newObj.setFunctionsFun(configs.getFunctionsFun());
 		}
 		
-		if (obj.getFunctionsUtility() != null) {
-			newObj.setFunctionsUtility(obj.getFunctionsUtility());
+		if (configs.getFunctionsUtility() != null) {
+			newObj.setFunctionsUtility(configs.getFunctionsUtility());
 		}
 		
-		if (obj.getSfw() != null) {
-			newObj.setSfw(obj.getSfw());
+		if (configs.getSfw() != null) {
+			newObj.setSfw(configs.getSfw());
 		}
 		
-		if (obj.getLanguage() != null) {
-			newObj.setLanguage(obj.getLanguage());
+		if (configs.getLanguage() != null) {
+			newObj.setLanguage(configs.getLanguage());
 		}
 	}
 }

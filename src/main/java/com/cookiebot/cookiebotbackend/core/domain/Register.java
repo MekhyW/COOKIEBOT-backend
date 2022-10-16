@@ -7,18 +7,18 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "registers")
-public class Registers implements Serializable {
+@Document(collection = "register")
+public class Register implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
-	private List<UserRegisters> users = new ArrayList<>();
+	private List<UserRegister> users = new ArrayList<>();
 	
-	public Registers() {
+	public Register() {
 	}
 	
-	public Registers(String id) {
+	public Register(String id) {
 		super();
 		this.id = id;
 	}
@@ -31,11 +31,11 @@ public class Registers implements Serializable {
 		this.id = id;
 	}
 
-	public List<UserRegisters> getUsers() {
+	public List<UserRegister> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserRegisters> users) {
+	public void setUsers(List<UserRegister> users) {
 		this.users = users;
 	}
 }

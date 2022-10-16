@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Configs;
-import com.cookiebot.cookiebotbackend.dao.services.ConfigsService;
+import com.cookiebot.cookiebotbackend.core.domain.Config;
+import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
 
 @RestController
 @RequestMapping(value="/configs")
-public class ConfigsResource {
+public class ConfigResource {
 
 	@Autowired
-	private ConfigsService service;
+	private ConfigService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Configs>> findAll() {
-		List<Configs> list = service.findAll();
+	public ResponseEntity<List<Config>> findAll() {
+		List<Config> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Configs> findById(@PathVariable String id) {
-		Configs obj = service.findById(id);
+	public ResponseEntity<Config> findById(@PathVariable String id) {
+		Config obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Configs> insert(@RequestBody Configs configs) {
+	public ResponseEntity<Config> insert(@RequestBody Config configs) {
 		configs = service.insert(configs);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(configs.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -48,7 +48,7 @@ public class ConfigsResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	private ResponseEntity<Void> update(@RequestBody Configs configs, @PathVariable String id) {
+	private ResponseEntity<Void> update(@RequestBody Config configs, @PathVariable String id) {
 		configs.setId(id);
 		configs = service.update(configs);
 		return ResponseEntity.noContent().build();

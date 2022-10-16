@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Registers;
-import com.cookiebot.cookiebotbackend.core.domain.UserRegisters;
-import com.cookiebot.cookiebotbackend.dao.services.RegistersService;
+import com.cookiebot.cookiebotbackend.core.domain.Register;
+import com.cookiebot.cookiebotbackend.core.domain.UserRegister;
+import com.cookiebot.cookiebotbackend.dao.services.RegisterService;
 
 @RestController
 @RequestMapping(value="/registers")
-public class RegistersResource {
+public class RegisterResource {
 
 	@Autowired
-	private RegistersService service;
+	private RegisterService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Registers>> findAll() {
-		List<Registers> list = service.findAll();
+	public ResponseEntity<List<Register>> findAll() {
+		List<Register> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Registers> findById(@PathVariable String id) {
-		Registers obj = service.findById(id);
+	public ResponseEntity<Register> findById(@PathVariable String id) {
+		Register obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Registers> insert(@RequestBody Registers registers) {
+	public ResponseEntity<Register> insert(@RequestBody Register registers) {
 		registers = service.insert(registers);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(registers.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -49,19 +49,19 @@ public class RegistersResource {
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
-	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
 		service.insertUser(id, userRegisters);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
 		service.deleteUser(id, userRegisters);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegisters userRegisters) {
+	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
 		service.updateUser(id, userRegisters);
 		return ResponseEntity.noContent().build();
 	}

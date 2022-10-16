@@ -5,8 +5,8 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "configs")
-public class Configs implements Serializable {
+@Document(collection = "config")
+public class Config implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -20,10 +20,10 @@ public class Configs implements Serializable {
 	private Boolean sfw;
 	private String language;
 	
-	public Configs() {	
+	public Config() {	
 	}
 
-	public Configs(String id, Boolean furbots, String stickerSpamLimit, Integer timeWithoutSendingImages,
+	public Config(String id, Boolean furbots, String stickerSpamLimit, Integer timeWithoutSendingImages,
 			Integer timeCaptcha, Boolean functionsFun, Boolean functionsUtility, Boolean sfw, String language) {
 		super();
 		this.id = id;

@@ -2,16 +2,16 @@ package com.cookiebot.cookiebotbackend.core.domain;
 
 import java.io.Serializable;
 
-public class UserRegisters implements Serializable {
+public class UserRegister implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String user;
 	private String date;
 	
-	public UserRegisters() {
+	public UserRegister() {
 	}
 	
-	public UserRegisters(String user, String date) {
+	public UserRegister(String user, String date) {
 		super();
 		this.user = user;
 		this.date = date;

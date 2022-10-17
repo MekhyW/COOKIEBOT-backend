@@ -1,4 +1,4 @@
-package com.cookiebot.cookiebotbackend.core.repository;
+package com.cookiebot.cookiebotbackend.dao.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "register")
+@Document(collection = "registers")
 public class Register implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domain.Register;
 import com.cookiebot.cookiebotbackend.core.domain.UserRegister;
-import com.cookiebot.cookiebotbackend.core.repository.RegisterRepository;
+import com.cookiebot.cookiebotbackend.dao.repository.RegisterRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
 import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
 

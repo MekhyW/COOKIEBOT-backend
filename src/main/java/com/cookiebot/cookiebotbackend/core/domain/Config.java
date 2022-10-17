@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "config")
+@Document(collection = "configs")
 public class Config implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

@@ -33,6 +33,7 @@ public class ConfigService {
 		}
 		
 		Config searchId = repository.findById(config.getId()).orElse(null);
+		
 		if (searchId == null) {
 			return repository.insert(config);
 		} else {

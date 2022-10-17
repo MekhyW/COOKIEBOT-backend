@@ -47,7 +47,7 @@ public class RegisterService {
 
 	public void delete(String id) {
 		
-		if(id == null) {
+		if (id == null) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
 		
@@ -60,21 +60,24 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = findById(id);
+		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
-		boolean foundExistingUser = false;
+		boolean foundUser = false;
 		Integer userSize = user.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
+			
 			if (user.get(userArray).getUser().matches(userRegister.getUser())){
-				foundExistingUser = true;
+				foundUser = true;
 			}
 		}
 	
-		if (foundExistingUser == false) {
+		if (foundUser == false) {
+			
 			user.addAll(Arrays.asList(userRegister));
 			register.setUsers(user);
 			repository.save(register);
+			
 		} else {
 			throw new BadRequestException("User Already Exists");
 		}
@@ -86,23 +89,24 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = findById(id);
-		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
-		boolean foundExistingUser = false;
+		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		List<UserRegister> users = new ArrayList<UserRegister>(register.getUsers());
+		boolean foundUser = false;
 		String userToDelete = userRegister.getUser();
-		Integer userSize = user.size();
+		Integer userSize = users.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
 			
-			if (user.get(userArray).getUser().matches(userToDelete)){
-				foundExistingUser = true;
-				user.remove(userArray);
-				register.setUsers(user);
+			if (users.get(userArray).getUser().matches(userToDelete)){
+				
+				foundUser = true;
+				users.remove(userArray);
+				register.setUsers(users);
 				repository.save(register);
 			} 
 		}
 		
-		if (foundExistingUser == false) {
+		if (foundUser == false) {
 			throw new ObjectNotFoundException("User Not Found");
 		}
 	}
@@ -113,23 +117,24 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = findById(id);
-		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
-		boolean foundExistingUser = false;
-		Integer userSize = user.size();
+		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		List<UserRegister> users = new ArrayList<UserRegister>(register.getUsers());
+		boolean foundUser = false;
+		Integer userSize = users.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
 			
-			if (user.get(userArray).getUser().matches(userRegister.getUser())){
-				foundExistingUser = true;
-				user.remove(userArray);
-				user.addAll(Arrays.asList(userRegister));
-				register.setUsers(user);
+			if (users.get(userArray).getUser().matches(userRegister.getUser())){
+				
+				foundUser = true;
+				users.remove(userArray);
+				users.addAll(Arrays.asList(userRegister));
+				register.setUsers(users);
 				repository.save(register);
 			} 
 		}
 		
-		if (foundExistingUser == false) {
+		if (foundUser == false) {
 			throw new ObjectNotFoundException("User Not Found");
 		}
 	}

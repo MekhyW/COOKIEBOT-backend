@@ -31,14 +31,14 @@ public class RegisterResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Register> findById(@PathVariable String id) {
-		Register obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		Register registers = service.findById(id);
+		return ResponseEntity.ok().body(registers);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Register> insert(@RequestBody Register registers) {
-		registers = service.insert(registers);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(registers.getId()).toUri();
+	public ResponseEntity<Register> insert(@RequestBody Register register) {
+		service.insert(register);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(register.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -49,20 +49,20 @@ public class RegisterResource {
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
-	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
-		service.insertUser(id, userRegisters);
+	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
+		service.insertUser(id, userRegister);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
-		service.deleteUser(id, userRegisters);
+	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
+		service.deleteUser(id, userRegister);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister userRegisters) {
-		service.updateUser(id, userRegisters);
+	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
+		service.updateUser(id, userRegister);
 		return ResponseEntity.noContent().build();
 	}
 }

@@ -17,7 +17,6 @@ import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundExcep
 public class RegisterService {
 
 	@Autowired
-	
 	private RegisterRepository repository;
 	
 	public List<Register> findAll(){
@@ -25,7 +24,6 @@ public class RegisterService {
 	}
 	
 	public Register findById(String id) {
-		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return register;
 	}
@@ -36,9 +34,9 @@ public class RegisterService {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
 		
-		Register id = repository.findById(register.getId()).orElse(null);
+		Register findId = repository.findById(register.getId()).orElse(null);
 		
-		if (id == null) {
+		if (findId == null) {
 			return repository.insert(register);
 		} else {
 			throw new BadRequestException("ID Already Exists");
@@ -66,18 +64,15 @@ public class RegisterService {
 		Integer userSize = user.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			
 			if (user.get(userArray).getUser().matches(userRegister.getUser())){
 				foundUser = true;
 			}
 		}
 	
 		if (foundUser == false) {
-			
 			user.addAll(Arrays.asList(userRegister));
 			register.setUsers(user);
 			repository.save(register);
-			
 		} else {
 			throw new BadRequestException("User Already Exists");
 		}
@@ -90,18 +85,16 @@ public class RegisterService {
 		}
 		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<UserRegister> users = new ArrayList<UserRegister>(register.getUsers());
+		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
 		String userToDelete = userRegister.getUser();
-		Integer userSize = users.size();
+		Integer userSize = user.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			
-			if (users.get(userArray).getUser().matches(userToDelete)){
-				
+			if (user.get(userArray).getUser().matches(userToDelete)){	
 				foundUser = true;
-				users.remove(userArray);
-				register.setUsers(users);
+				user.remove(userArray);
+				register.setUsers(user);
 				repository.save(register);
 			} 
 		}
@@ -118,18 +111,16 @@ public class RegisterService {
 		}
 		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<UserRegister> users = new ArrayList<UserRegister>(register.getUsers());
+		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
-		Integer userSize = users.size();
+		Integer userSize = user.size();
 		
-		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			
-			if (users.get(userArray).getUser().matches(userRegister.getUser())){
-				
+		for (int userArray = userSize-1; userArray >= 0; userArray--) {	
+			if (user.get(userArray).getUser().matches(userRegister.getUser())){
 				foundUser = true;
-				users.remove(userArray);
-				users.addAll(Arrays.asList(userRegister));
-				register.setUsers(users);
+				user.remove(userArray);
+				user.addAll(Arrays.asList(userRegister));
+				register.setUsers(user);
 				repository.save(register);
 			} 
 		}

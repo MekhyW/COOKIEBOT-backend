@@ -12,32 +12,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Config;
-import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
+import com.cookiebot.cookiebotbackend.core.domain.Rule;
+import com.cookiebot.cookiebotbackend.dao.services.RuleService;
 
 @RestController
-@RequestMapping(value="/configs")
-public class ConfigResource {
+@RequestMapping(value="/rules")
+public class RuleResource {
 
 	@Autowired
-	private ConfigService service;
+	private RuleService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Config>> findAll() {
-		List<Config> list = service.findAll();
+	public ResponseEntity<List<Rule>> findAll(){
+		List<Rule> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Config> findById(@PathVariable String id) {
-		Config config = service.findById(id);
-		return ResponseEntity.ok().body(config);
+	public ResponseEntity<Rule> findById(@PathVariable String id) {
+		Rule rule = service.findById(id);
+		return ResponseEntity.ok().body(rule);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Config> insert(@RequestBody Config config) {
-		service.insert(config);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(config.getId()).toUri();
+	public ResponseEntity<Rule> insert(@RequestBody Rule rule) {
+		service.insert(rule);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rule.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -48,9 +48,9 @@ public class ConfigResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	private ResponseEntity<Void> update(@RequestBody Config config, @PathVariable String id) {
-		config.setId(id);
-		service.update(config);
+	private ResponseEntity<Void> update(@RequestBody Rule rule, @PathVariable String id) {
+		rule.setId(id);
+		service.update(rule);
 		return ResponseEntity.noContent().build();
 	}
 }

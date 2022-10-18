@@ -25,14 +25,14 @@ public class RegisterResource {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Register>> findAll() {
-		List<Register> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<Register> registerList = service.findAll();
+		return ResponseEntity.ok().body(registerList);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Register> findById(@PathVariable String id) {
-		Register registers = service.findById(id);
-		return ResponseEntity.ok().body(registers);
+		Register registerList = service.findById(id);
+		return ResponseEntity.ok().body(registerList);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

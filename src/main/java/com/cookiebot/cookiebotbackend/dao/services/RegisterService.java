@@ -59,19 +59,19 @@ public class RegisterService {
 		}
 		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
+		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
-		Integer userSize = user.size();
+		Integer userSize = userList.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			if (user.get(userArray).getUser().matches(userRegister.getUser())){
+			if (userList.get(userArray).getUser().matches(userRegister.getUser())){
 				foundUser = true;
 			}
 		}
 	
 		if (foundUser == false) {
-			user.addAll(Arrays.asList(userRegister));
-			register.setUsers(user);
+			userList.addAll(Arrays.asList(userRegister));
+			register.setUsers(userList);
 			repository.save(register);
 		} else {
 			throw new BadRequestException("User Already Exists");
@@ -85,16 +85,16 @@ public class RegisterService {
 		}
 		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
+		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
 		String userToDelete = userRegister.getUser();
-		Integer userSize = user.size();
+		Integer userSize = userList.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			if (user.get(userArray).getUser().matches(userToDelete)){	
+			if (userList.get(userArray).getUser().matches(userToDelete)){	
 				foundUser = true;
-				user.remove(userArray);
-				register.setUsers(user);
+				userList.remove(userArray);
+				register.setUsers(userList);
 				repository.save(register);
 			} 
 		}
@@ -111,16 +111,16 @@ public class RegisterService {
 		}
 		
 		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<UserRegister> user = new ArrayList<UserRegister>(register.getUsers());
+		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
-		Integer userSize = user.size();
+		Integer userSize = userList.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {	
-			if (user.get(userArray).getUser().matches(userRegister.getUser())){
+			if (userList.get(userArray).getUser().matches(userRegister.getUser())){
 				foundUser = true;
-				user.remove(userArray);
-				user.addAll(Arrays.asList(userRegister));
-				register.setUsers(user);
+				userList.remove(userArray);
+				userList.addAll(Arrays.asList(userRegister));
+				register.setUsers(userList);
 				repository.save(register);
 			} 
 		}

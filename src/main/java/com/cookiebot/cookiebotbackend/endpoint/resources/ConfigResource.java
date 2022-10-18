@@ -24,14 +24,14 @@ public class ConfigResource {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Config>> findAll() {
-		List<Config> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<Config> configList = service.findAll();
+		return ResponseEntity.ok().body(configList);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Config> findById(@PathVariable String id) {
-		Config config = service.findById(id);
-		return ResponseEntity.ok().body(config);
+		Config configList = service.findById(id);
+		return ResponseEntity.ok().body(configList);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

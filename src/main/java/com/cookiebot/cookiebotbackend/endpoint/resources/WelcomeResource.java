@@ -12,32 +12,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Rule;
-import com.cookiebot.cookiebotbackend.dao.services.RuleService;
+import com.cookiebot.cookiebotbackend.core.domain.Welcome;
+import com.cookiebot.cookiebotbackend.dao.services.WelcomeService;
 
 @RestController
-@RequestMapping(value="/rules")
-public class RuleResource {
+@RequestMapping(value="/welcomes")
+public class WelcomeResource {
 
 	@Autowired
-	private RuleService service;
+	WelcomeService service;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Rule>> findAll(){
-		List<Rule> ruleList = service.findAll();
-		return ResponseEntity.ok().body(ruleList);
+	public ResponseEntity<List<Welcome>> findAll(){
+		List<Welcome> welcomeList = service.findAll();
+		return ResponseEntity.ok().body(welcomeList);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Rule> findById(@PathVariable String id) {
-		Rule ruleList = service.findById(id);
-		return ResponseEntity.ok().body(ruleList);
+	public ResponseEntity<Welcome> findById(@PathVariable String id) {
+		Welcome welcomeList = service.findById(id);
+		return ResponseEntity.ok().body(welcomeList);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Rule> insert(@RequestBody Rule rule) {
-		service.insert(rule);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rule.getId()).toUri();
+	public ResponseEntity<Welcome> insert(@RequestBody Welcome welcome) {
+		service.insert(welcome);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(welcome.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -48,9 +48,9 @@ public class RuleResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	private ResponseEntity<Void> update(@RequestBody Rule rule, @PathVariable String id) {
-		rule.setId(id);
-		service.update(rule);
+	private ResponseEntity<Void> update(@RequestBody Welcome welcome, @PathVariable String id) {
+		welcome.setId(id);
+		service.update(welcome);
 		return ResponseEntity.noContent().build();
 	}
 }

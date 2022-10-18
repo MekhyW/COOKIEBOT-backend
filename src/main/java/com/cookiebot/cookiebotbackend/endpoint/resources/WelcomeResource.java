@@ -34,8 +34,9 @@ public class WelcomeResource {
 		return ResponseEntity.ok().body(welcomeList);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Welcome> insert(@RequestBody Welcome welcome) {
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Welcome> insert(@RequestBody Welcome welcome, @PathVariable String id) {
+		welcome.setId(id);
 		service.insert(welcome);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(welcome.getId()).toUri();
 		return ResponseEntity.created(uri).build();

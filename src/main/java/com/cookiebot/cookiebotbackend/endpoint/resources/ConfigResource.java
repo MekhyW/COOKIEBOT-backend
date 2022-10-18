@@ -34,8 +34,9 @@ public class ConfigResource {
 		return ResponseEntity.ok().body(configList);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Config> insert(@RequestBody Config config) {
+	@RequestMapping(value="/{id}",method=RequestMethod.POST)
+	public ResponseEntity<Config> insert(@RequestBody Config config, @PathVariable String id) {
+		config.setId(id);
 		service.insert(config);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(config.getId()).toUri();
 		return ResponseEntity.created(uri).build();

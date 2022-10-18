@@ -35,8 +35,9 @@ public class RegisterResource {
 		return ResponseEntity.ok().body(registerList);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Register> insert(@RequestBody Register register) {
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Register> insert(@RequestBody Register register, @PathVariable String id) {
+		register.setId(id);
 		service.insert(register);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(register.getId()).toUri();
 		return ResponseEntity.created(uri).build();

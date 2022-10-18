@@ -34,8 +34,9 @@ public class RuleResource {
 		return ResponseEntity.ok().body(ruleList);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Rule> insert(@RequestBody Rule rule) {
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Rule> insert(@RequestBody Rule rule, @PathVariable String id) {
+		rule.setId(id);
 		service.insert(rule);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rule.getId()).toUri();
 		return ResponseEntity.created(uri).build();

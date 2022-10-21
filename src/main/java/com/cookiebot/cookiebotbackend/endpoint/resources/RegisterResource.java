@@ -47,24 +47,24 @@ public class RegisterResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
 	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
 		service.insertUser(id, userRegister);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
 		service.deleteUser(id, userRegister);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
 	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
 		service.updateUser(id, userRegister);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 }

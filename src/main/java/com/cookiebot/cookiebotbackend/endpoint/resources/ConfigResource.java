@@ -46,13 +46,13 @@ public class ConfigResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	private ResponseEntity<Void> update(@RequestBody Config config, @PathVariable String id) {
 		config.setId(id);
 		service.update(config);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 }

@@ -46,13 +46,13 @@ public class RuleResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	private ResponseEntity<Void> update(@RequestBody Rule rule, @PathVariable String id) {
 		rule.setId(id);
 		service.update(rule);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 }

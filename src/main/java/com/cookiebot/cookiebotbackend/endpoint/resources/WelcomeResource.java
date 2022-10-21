@@ -46,13 +46,13 @@ public class WelcomeResource {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	private ResponseEntity<Void> update(@RequestBody Welcome welcome, @PathVariable String id) {
 		welcome.setId(id);
 		service.update(welcome);
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok().build();
 	}
 }

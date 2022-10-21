@@ -27,28 +27,21 @@ public class RuleService {
 	}
 	
 	public Rule insert(String id, Rule rule) {
+
+		if (repository.findById(id).orElse(null) != null) {
+			throw new BadRequestException("ID Already Exists");	
+		} 
 		
-		if (id == null) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
-		
-		Rule findId = repository.findById(id).orElse(null);
-		
-		if (findId == null) {
-			rule.setId(id);
-			return repository.insert(rule);
-		} else {
-			throw new BadRequestException("ID Already Exists");
-		}
+		rule.setId(id);
+		return repository.insert(rule);
 	}
 	
 	public void delete(String id) {
-		
-		if (id == null) {
+		try {
+			repository.deleteById(id);
+		} catch (Exception e) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
-		
-		repository.deleteById(id);
 	}
 	
 	public Rule update(String id, Rule rule) {

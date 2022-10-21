@@ -28,27 +28,20 @@ public class ConfigService {
 	
 	public Config insert(String id, Config config) {
 		
-		if (id == null) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
-		
-		Config findId = repository.findById(id).orElse(null);
-		
-		if (findId == null) {
-			config.setId(id);
-			return repository.insert(config);
-		} else {
+		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");
-		}
+		} 
+		
+		config.setId(id);
+		return repository.insert(config);
 	}
 	
 	public void delete(String id) {
-		
-		if (id == null) {
+		try {
+			repository.deleteById(id);
+		} catch (Exception e) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
-
-		repository.deleteById(id);
 	}
 	
 	public Config update(String id, Config config) {

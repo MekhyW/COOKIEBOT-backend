@@ -28,27 +28,20 @@ public class WelcomeService {
 	
 	public Welcome insert(String id, Welcome welcome) {
 		
-		if (id == null) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
-		
-		Welcome findId = repository.findById(id).orElse(null);
-		
-		if (findId == null) {
-			welcome.setId(id);
-			return repository.insert(welcome);
-		} else {
+		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");
-		}
+		} 
+		
+		welcome.setId(id);
+		return repository.insert(welcome);
 	}
 	
 	public void delete(String id) {
-		
-		if (id == null) {
+		try {
+			repository.deleteById(id);
+		} catch (Exception e) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
-		
-		repository.deleteById(id);
 	}
 	
 	public Welcome update(String id, Welcome welcome) {

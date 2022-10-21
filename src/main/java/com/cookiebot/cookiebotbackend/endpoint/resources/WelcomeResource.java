@@ -38,7 +38,8 @@ public class WelcomeResource {
 	public ResponseEntity<Welcome> insert(@RequestBody Welcome welcome, @PathVariable String id) {
 		welcome.setId(id);
 		service.insert(welcome);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(welcome.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(welcome.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

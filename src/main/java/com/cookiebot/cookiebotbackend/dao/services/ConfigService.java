@@ -21,7 +21,8 @@ public class ConfigService {
 	}
 	
 	public Config findById(String id) {
-		Config config = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Config config = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return config;
 	}
 	
@@ -50,7 +51,8 @@ public class ConfigService {
 	}
 	
 	public Config update(Config config) {
-		Config newConfig = repository.findById(config.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Config newConfig = repository.findById(config.getId())
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		updateConfig(newConfig, config);
 		return repository.save(newConfig);
 	}

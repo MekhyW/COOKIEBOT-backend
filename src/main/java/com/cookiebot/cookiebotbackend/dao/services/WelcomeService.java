@@ -21,7 +21,8 @@ public class WelcomeService {
 	}
 	
 	public Welcome findById(String id) {
-		Welcome welcome = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Welcome welcome = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return welcome;
 	}
 	
@@ -50,7 +51,8 @@ public class WelcomeService {
 	}
 	
 	public Welcome update(Welcome welcome) {
-		Welcome newWelcome = repository.findById(welcome.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Welcome newWelcome = repository.findById(welcome.getId())
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		updateWelcome(newWelcome, welcome);
 		return repository.save(newWelcome);
 	}

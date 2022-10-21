@@ -39,7 +39,8 @@ public class RegisterResource {
 	public ResponseEntity<Register> insert(@RequestBody Register register, @PathVariable String id) {
 		register.setId(id);
 		service.insert(register);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(register.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(register.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

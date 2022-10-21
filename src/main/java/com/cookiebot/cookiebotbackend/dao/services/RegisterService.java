@@ -24,7 +24,8 @@ public class RegisterService {
 	}
 	
 	public Register findById(String id) {
-		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Register register = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return register;
 	}
 	
@@ -58,7 +59,8 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Register register = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
 		Integer userSize = userList.size();
@@ -84,7 +86,8 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Register register = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
 		String userToDelete = userRegister.getUser();
@@ -110,7 +113,8 @@ public class RegisterService {
 			throw new BadRequestException("User Must Not Be Null");
 		}
 		
-		Register register = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Register register = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		List<UserRegister> userList = new ArrayList<UserRegister>(register.getUsers());
 		boolean foundUser = false;
 		Integer userSize = userList.size();

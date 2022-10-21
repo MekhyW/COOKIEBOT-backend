@@ -21,7 +21,8 @@ public class RuleService {
 	}
 	
 	public Rule findById(String id) {
-		Rule rule = repository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Rule rule = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		return rule;
 	}
 	
@@ -50,7 +51,8 @@ public class RuleService {
 	}
 	
 	public Rule update(Rule rule) {
-		Rule newRule = repository.findById(rule.getId()).orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		Rule newRule = repository.findById(rule.getId())
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
 		updateRules(newRule, rule);
 		return repository.save(newRule);
 	}

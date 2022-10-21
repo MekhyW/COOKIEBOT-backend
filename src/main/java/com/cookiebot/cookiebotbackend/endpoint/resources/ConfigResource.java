@@ -38,7 +38,8 @@ public class ConfigResource {
 	public ResponseEntity<Config> insert(@RequestBody Config config, @PathVariable String id) {
 		config.setId(id);
 		service.insert(config);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(config.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(config.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

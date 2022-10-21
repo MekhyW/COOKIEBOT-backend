@@ -38,7 +38,8 @@ public class RuleResource {
 	public ResponseEntity<Rule> insert(@RequestBody Rule rule, @PathVariable String id) {
 		rule.setId(id);
 		service.insert(rule);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(rule.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(rule.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	

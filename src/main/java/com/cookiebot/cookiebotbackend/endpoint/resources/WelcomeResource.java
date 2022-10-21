@@ -36,10 +36,9 @@ public class WelcomeResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public ResponseEntity<Welcome> insert(@RequestBody Welcome welcome, @PathVariable String id) {
-		welcome.setId(id);
-		service.insert(welcome);
+		service.insert(id, welcome);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(welcome.getId()).toUri();
+				.path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -51,8 +50,7 @@ public class WelcomeResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	private ResponseEntity<Void> update(@RequestBody Welcome welcome, @PathVariable String id) {
-		welcome.setId(id);
-		service.update(welcome);
+		service.update(id, welcome);
 		return ResponseEntity.ok().build();
 	}
 }

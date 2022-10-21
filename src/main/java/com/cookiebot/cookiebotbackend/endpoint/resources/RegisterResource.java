@@ -23,6 +23,7 @@ public class RegisterResource {
 	@Autowired
 	private RegisterService service;
 	
+	// Register by itself
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Register>> findAll() {
 		List<Register> registerList = service.findAll();
@@ -37,10 +38,9 @@ public class RegisterResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public ResponseEntity<Register> insert(@RequestBody Register register, @PathVariable String id) {
-		register.setId(id);
-		service.insert(register);
+		service.insert(id, register);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(register.getId()).toUri();
+				.path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -50,21 +50,22 @@ public class RegisterResource {
 		return ResponseEntity.ok().build();
 	}
 	
+	// Users from Register
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
-	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
-		service.insertUser(id, userRegister);
+	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister user) {
+		service.insertUser(id, user);
 		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
-		service.deleteUser(id, userRegister);
+	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister user) {
+		service.deleteUser(id, user);
 		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
-	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister userRegister) {
-		service.updateUser(id, userRegister);
+	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister user) {
+		service.updateUser(id, user);
 		return ResponseEntity.ok().build();
 	}
 }

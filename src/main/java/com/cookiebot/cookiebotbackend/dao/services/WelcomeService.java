@@ -26,15 +26,16 @@ public class WelcomeService {
 		return welcome;
 	}
 	
-	public Welcome insert(Welcome welcome) {
+	public Welcome insert(String id, Welcome welcome) {
 		
-		if (welcome.getId() == null) {
+		if (id == null) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
 		
-		Welcome findId = repository.findById(welcome.getId()).orElse(null);
+		Welcome findId = repository.findById(id).orElse(null);
 		
 		if (findId == null) {
+			welcome.setId(id);
 			return repository.insert(welcome);
 		} else {
 			throw new BadRequestException("ID Already Exists");
@@ -50,9 +51,10 @@ public class WelcomeService {
 		repository.deleteById(id);
 	}
 	
-	public Welcome update(Welcome welcome) {
-		Welcome newWelcome = repository.findById(welcome.getId())
+	public Welcome update(String id, Welcome welcome) {
+		Welcome newWelcome = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		welcome.setId(id);
 		updateWelcome(newWelcome, welcome);
 		return repository.save(newWelcome);
 	}

@@ -36,10 +36,9 @@ public class RuleResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.POST)
 	public ResponseEntity<Rule> insert(@RequestBody Rule rule, @PathVariable String id) {
-		rule.setId(id);
-		service.insert(rule);
+		service.insert(id, rule);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(rule.getId()).toUri();
+				.path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
@@ -51,8 +50,7 @@ public class RuleResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	private ResponseEntity<Void> update(@RequestBody Rule rule, @PathVariable String id) {
-		rule.setId(id);
-		service.update(rule);
+		service.update(id, rule);
 		return ResponseEntity.ok().build();
 	}
 }

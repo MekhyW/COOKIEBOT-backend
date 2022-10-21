@@ -26,15 +26,16 @@ public class RuleService {
 		return rule;
 	}
 	
-	public Rule insert(Rule rule) {
+	public Rule insert(String id, Rule rule) {
 		
-		if (rule.getId() == null) {
+		if (id == null) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
 		
-		Rule findId = repository.findById(rule.getId()).orElse(null);
+		Rule findId = repository.findById(id).orElse(null);
 		
 		if (findId == null) {
+			rule.setId(id);
 			return repository.insert(rule);
 		} else {
 			throw new BadRequestException("ID Already Exists");
@@ -50,9 +51,10 @@ public class RuleService {
 		repository.deleteById(id);
 	}
 	
-	public Rule update(Rule rule) {
-		Rule newRule = repository.findById(rule.getId())
+	public Rule update(String id, Rule rule) {
+		Rule newRule = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		rule.setId(id);
 		updateRules(newRule, rule);
 		return repository.save(newRule);
 	}

@@ -26,15 +26,16 @@ public class ConfigService {
 		return config;
 	}
 	
-	public Config insert(Config config) {
+	public Config insert(String id, Config config) {
 		
-		if (config.getId() == null) {
+		if (id == null) {
 			throw new BadRequestException("ID Must Not Be Null");
 		}
 		
-		Config findId = repository.findById(config.getId()).orElse(null);
+		Config findId = repository.findById(id).orElse(null);
 		
 		if (findId == null) {
+			config.setId(id);
 			return repository.insert(config);
 		} else {
 			throw new BadRequestException("ID Already Exists");
@@ -50,9 +51,10 @@ public class ConfigService {
 		repository.deleteById(id);
 	}
 	
-	public Config update(Config config) {
-		Config newConfig = repository.findById(config.getId())
+	public Config update(String id, Config config) {
+		Config newConfig = repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		config.setId(id);
 		updateConfig(newConfig, config);
 		return repository.save(newConfig);
 	}

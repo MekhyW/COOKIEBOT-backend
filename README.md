@@ -10,9 +10,8 @@ Using: Java 17 + Spring Boot + Spring Web + Spring Data MongoDB
 
 -> Implement oAuth2 authentication 
 
-
-# Confirmed Server Paths
-CONFIGS:
+# CONFIRMED SERVER PATHS
+# configs:
 
 host:port/configs [GET]
 
@@ -38,8 +37,7 @@ sfw : boolean
 
 language : string
 
-
-REGISTERS:
+# registers:
 
 host:port/registers [GET]
 
@@ -55,8 +53,7 @@ user : string
 
 date : string
 
-
-RULES:
+# rules:
 
 host:port/rules [GET]
 
@@ -69,7 +66,7 @@ id : string
 rules : string
 
 
-WELCOMES:
+# welcomes:
 
 host:port/welcomes [GET]
 

@@ -23,7 +23,7 @@ public class RegisterResource {
 	@Autowired
 	private RegisterService service;
 	
-	// Register by itself
+	// Manage Register
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Register>> findAll() {
 		List<Register> registerList = service.findAll();
@@ -50,7 +50,7 @@ public class RegisterResource {
 		return ResponseEntity.ok().build();
 	}
 	
-	// Users from Register
+	// Manage Users from Register
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
 	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister user) {
 		service.insertUser(id, user);

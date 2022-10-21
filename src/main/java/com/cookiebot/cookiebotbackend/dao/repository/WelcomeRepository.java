@@ -4,6 +4,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.cookiebot.cookiebotbackend.core.domain.Welcome;
 
-public interface WelcomeRepository extends MongoRepository<Welcome, String>{
+public interface WelcomeRepository extends MongoRepository<Welcome, String> {
 
 }

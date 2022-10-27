@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Register;
-import com.cookiebot.cookiebotbackend.core.domain.UserRegister;
+import com.cookiebot.cookiebotbackend.core.domains.Register;
+import com.cookiebot.cookiebotbackend.core.domains.UserRegister;
 import com.cookiebot.cookiebotbackend.dao.services.RegisterService;
 
 @RestController
-@RequestMapping(value="/registers")
+@RequestMapping(value = "/registers")
 public class RegisterResource {
 
 	@Autowired

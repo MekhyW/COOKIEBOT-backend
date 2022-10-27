@@ -7,11 +7,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cookiebot.cookiebotbackend.core.domain.Register;
-import com.cookiebot.cookiebotbackend.core.domain.UserRegister;
+import com.cookiebot.cookiebotbackend.core.domains.Register;
+import com.cookiebot.cookiebotbackend.core.domains.UserRegister;
 import com.cookiebot.cookiebotbackend.dao.repository.RegisterRepository;
-import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class RegisterService {

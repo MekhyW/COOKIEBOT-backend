@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Rule;
+import com.cookiebot.cookiebotbackend.core.domains.Rule;
 import com.cookiebot.cookiebotbackend.dao.services.RuleService;
 
 @RestController
-@RequestMapping(value="/rules")
+@RequestMapping(value = "/rules")
 public class RuleResource {
 
 	@Autowired

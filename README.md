@@ -77,3 +77,13 @@ Json attributes:
 id : string
 
 message : string
+
+# blacklist:
+
+host:port/blacklist [GET]
+
+host:port/blacklist/{id} [GET, POST, DELETE]
+
+Json attributes:
+
+id : string

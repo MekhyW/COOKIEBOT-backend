@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -17,7 +17,8 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException exception, HttpServletRequest request){
 		
 		HttpStatus status = HttpStatus.NOT_FOUND;
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Not Found", exception.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError
+				(System.currentTimeMillis(), status.value(), "Not Found", exception.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
 	}
@@ -26,7 +27,8 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> badRequest(BadRequestException exception, HttpServletRequest request){
 		
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError(System.currentTimeMillis(), status.value(), "Bad Request", exception.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError
+				(System.currentTimeMillis(), status.value(), "Bad Request", exception.getMessage(), request.getRequestURI());
 		
 		return ResponseEntity.status(status).body(err);
 	}

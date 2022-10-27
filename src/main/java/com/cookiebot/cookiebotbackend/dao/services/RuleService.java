@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cookiebot.cookiebotbackend.core.domain.Rule;
+import com.cookiebot.cookiebotbackend.core.domains.Rule;
 import com.cookiebot.cookiebotbackend.dao.repository.RuleRepository;
-import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class RuleService {

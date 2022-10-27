@@ -1,11 +1,11 @@
-package com.cookiebot.cookiebotbackend.core.domain;
+package com.cookiebot.cookiebotbackend.core.domains;
 
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="welcomes")
+@Document(collection = "welcomes")
 public class Welcome implements Serializable {
 	private static final long serialVersionUID = 1L;
 

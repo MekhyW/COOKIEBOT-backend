@@ -1,4 +1,4 @@
-package com.cookiebot.cookiebotbackend.core.domain;
+package com.cookiebot.cookiebotbackend.core.domains;
 
 import java.io.Serializable;
 

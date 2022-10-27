@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cookiebot.cookiebotbackend.core.domain.Config;
+import com.cookiebot.cookiebotbackend.core.domains.Config;
 import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
 
 @RestController
-@RequestMapping(value="/configs")
+@RequestMapping(value = "/configs")
 public class ConfigResource {
 
 	@Autowired

@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cookiebot.cookiebotbackend.core.domain.Config;
+import com.cookiebot.cookiebotbackend.core.domains.Config;
 import com.cookiebot.cookiebotbackend.dao.repository.ConfigRepository;
-import com.cookiebot.cookiebotbackend.dao.services.exception.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exception.ObjectNotFoundException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ConfigService {

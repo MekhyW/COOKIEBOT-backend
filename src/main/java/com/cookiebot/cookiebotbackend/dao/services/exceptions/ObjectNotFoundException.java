@@ -1,4 +1,4 @@
-package com.cookiebot.cookiebotbackend.dao.services.exception;
+package com.cookiebot.cookiebotbackend.dao.services.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

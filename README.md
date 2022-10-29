@@ -87,3 +87,15 @@ host:port/blacklist/{id} [GET, POST, DELETE]
 Json attributes:
 
 id : string
+
+# stickers:
+
+host:port/stickers [GET]
+
+host:port/stickers/{id} [GET, POST, PUT, DELETE]
+
+Json attributes:
+
+id : string
+
+lastUsed : string

@@ -6,7 +6,6 @@ This project aims to manage a NoSQL (MongoDB) database with http.
 Using: Java 17 + Spring Boot + Spring Web + Spring Data MongoDB
 
 # TODO
--> Implement more database collections
 
 -> Implement oAuth2 authentication 
 
@@ -99,3 +98,15 @@ Json attributes:
 id : string
 
 lastUsed : string
+
+# randomdatabase:
+
+host:port/randomdatabase [GET/POST]
+
+Json attributes:
+
+id : string
+
+idMessage : string
+
+idMedia : string

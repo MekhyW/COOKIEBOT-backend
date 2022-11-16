@@ -1,0 +1,1 @@
+ssh ubuntu@144.22.197.224 -i ssh-key-2022-09-17.key

@@ -20,6 +20,7 @@ It's necessary to create a file called "application.properties" inside src/main/
 	spring.security.user.password=password
 	spring.security.user.roles=ADMIN
 
+
 ### Configure https to encrypt your connection:
 
 By default, unprivileged users on Linux are blocked from hosting on ports under 1024.
@@ -27,11 +28,11 @@ By default, unprivileged users on Linux are blocked from hosting on ports under 
 In order to allow any port to any user, insert this line into the file /etc/sysctl.d/99-sysctl.conf with a text editor:
 
 	net.ipv4.ip_unprivileged_port_start=0
-	
+
 This new configuration will be effective after a reboot. You can also apply it immediately:
 	
 	sudo sysctl -p /etc/sysctl.d/99-sysctl.conf
-	
+
 After that, use keytool to generate a certificate (for a self-signed https):
 
 	keytool -genkey -alias bootsecurity -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore bootsecurity.p12 -validity 36500
@@ -46,104 +47,110 @@ Copy the bootsecurity.p12 file to /src/main/resources and finally add these sett
 
 And you're done!
 
+
 # SERVER PATHS
 ### configs:
 
-https://host/configs [GET]
-
-https://host/configs/{id} [GET, POST, PUT, DELETE] 
+	https://host/configs [GET]
+	
+	https://host/configs/{id} [GET, POST, PUT, DELETE] 
 
 Json attributes:
 
-id : string 
+	id : string 
+	
+	furbots : boolean
+	
+	stickerSpamLimit : integer
+	
+	timeWithoutSendingImages : integer
+	
+	timeCaptcha : integer
+	
+	functionsFun : boolean
+	
+	functionsUtility : boolean
+	
+	sfw : boolean
+	
+	language : string
 
-furbots : boolean
-
-stickerSpamLimit : integer
-
-timeWithoutSendingImages : integer
-
-timeCaptcha : integer
-
-functionsFun : boolean
-
-functionsUtility : boolean
-
-sfw : boolean
-
-language : string
 
 ### registers:
 
-https://host/registers [GET]
-
-https://host/registers/{id} [GET, POST, DELETE]
-
-https://host/registers/{id}/users [GET, POST, PUT, DELETE]
+	https://host/registers [GET]
+	
+	https://host/registers/{id} [GET, POST, DELETE]
+	
+	https://host/registers/{id}/users [GET, POST, PUT, DELETE]
 
 Json attributes:
 
-id : string
+	id : string
+	
+	user : string
+	
+	date : string
 
-user : string
-
-date : string
 
 ### rules:
 
-https://host/rules [GET]
-
-https://host/rules/{id} [GET, POST, PUT, DELETE]
+	https://host/rules [GET]
+	
+	https://host/rules/{id} [GET, POST, PUT, DELETE]
 
 Json attributes:
 
-id : string
-
-rules : string
+	id : string
+	
+	rules : string
 
 
 ### welcomes:
 
-https://host/welcomes [GET]
-
-https://host/welcomes/{id} [GET, POST, PUT, DELETE]
+	https://host/welcomes [GET]
+	
+	https://host/welcomes/{id} [GET, POST, PUT, DELETE]
 
 Json attributes:
 
-id : string
+	id : string
+	
+	message : string
 
-message : string
 
 ### blacklist:
 
-https://host/blacklist [GET]
-
-https://host/blacklist/{id} [GET, POST, DELETE]
+	https://host/blacklist [GET]
+	
+	https://host/blacklist/{id} [GET, POST, DELETE]
 
 Json attributes:
 
-id : string
+	id : string
+
 
 ### stickers:
 
-https://host/stickers [GET]
-
-https://host/stickers/{id} [GET, POST, PUT, DELETE]
+	https://host/stickers [GET]
+	
+	https://host/stickers/{id} [GET, POST, PUT, DELETE]
 
 Json attributes:
 
-id : string
+	id : string
+	
+	lastUsed : string
 
-lastUsed : string
 
 ### randomdatabase:
 
-https://host/randomdatabase [GET/POST]
+	https://host/randomdatabase [GET/POST]
 
 Json attributes:
 
-id : string
-
-idMessage : string
-
-idMedia : string
+	id : string
+	
+	idMessage : string
+	
+	idMedia : string

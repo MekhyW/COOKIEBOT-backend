@@ -37,3 +37,4 @@ build/
 *.pub
 *.json
 application.properties
+bootsecurity.p12

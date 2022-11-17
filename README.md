@@ -37,16 +37,17 @@ After that, use keytool to generate a certificate (for a self-signed https):
 
 	keytool -genkey -alias bootsecurity -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore bootsecurity.p12 -validity 36500
 	
-Copy the bootsecurity.p12 file to /src/main/resources and finally add these settings to your application.properties:
+Copy the bootsecurity.p12 file to the root folder of the project and finally add these settings to your application.properties:
 
 	server.port=443
-	server.ssl.key-store=src/main/resources/bootsecurity.p12
+	server.ssl.key-store=bootsecurity.p12
 	server.ssl.key-store-password=YourCertificatePasswordHere
 	server.ssl.key-store-type=PKCS12
 	server.ssl.key-alias=bootsecurity
 
 And you're done!
 
+After compiling to a jar file, the software will look for a bootsecurity.p12 file on the same directory as the .jar file itself.
 
 # SERVER PATHS
 ### configs:

@@ -19,13 +19,15 @@ public class Config implements Serializable {
 	private Boolean functionsUtility;
 	private Boolean sfw;
 	private String language;
+	private Boolean publisherPost;
+	private Boolean publisherAsk;
 	
 	public Config() {	
 	}
-
+	
 	public Config(String id, Boolean furbots, String stickerSpamLimit, Integer timeWithoutSendingImages,
-			Integer timeCaptcha, Boolean functionsFun, Boolean functionsUtility, Boolean sfw, String language) {
-		super();
+			Integer timeCaptcha, Boolean functionsFun, Boolean functionsUtility, Boolean sfw, String language,
+			Boolean publisherPost, Boolean publisherAsk) {
 		this.id = id;
 		this.furbots = furbots;
 		this.stickerSpamLimit = stickerSpamLimit;
@@ -35,6 +37,8 @@ public class Config implements Serializable {
 		this.functionsUtility = functionsUtility;
 		this.sfw = sfw;
 		this.language = language;
+		this.publisherPost = publisherPost;
+		this.publisherAsk = publisherAsk;
 	}
 
 	public String getId() {
@@ -108,4 +112,20 @@ public class Config implements Serializable {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+
+	public Boolean getPublisherPost() {
+		return publisherPost;
+	}
+
+	public void setPublisherPost(Boolean publisherPost) {
+		this.publisherPost = publisherPost;
+	}
+
+	public Boolean getPublisherAsk() {
+		return publisherAsk;
+	}
+
+	public void setPublisherAsk(Boolean publisherAsk) {
+		this.publisherAsk = publisherAsk;
+	}	
 }

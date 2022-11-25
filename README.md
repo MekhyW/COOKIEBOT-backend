@@ -76,6 +76,9 @@ Json attributes:
 	
 	language : string
 
+	publisherPost : boolean
+	
+	publisherAsk : boolean
 
 ### registers:
 

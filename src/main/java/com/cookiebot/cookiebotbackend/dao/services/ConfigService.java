@@ -85,5 +85,13 @@ public class ConfigService {
 		if (config.getLanguage() != null) {
 			newConfig.setLanguage(config.getLanguage());
 		}
+
+		if (config.getPublisherAsk() != null) {
+			newConfig.setPublisherAsk(config.getPublisherAsk());
+		}
+
+		if (config.getPublisherPost() != null) {
+			newConfig.setPublisherPost(config.getPublisherPost());
+		}
 	}
 }

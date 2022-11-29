@@ -5,7 +5,15 @@ This project aims to manage a NoSQL (MongoDB) database with https.
 
 Using: Java 19 + Spring Boot + Spring Web + Spring Data MongoDB + Spring Security
 
-# CONFIGURATION GUIDE
+
+## RELATED SERVER-SIDE PROJECTS
+
+[Systemd Service](https://gitlab.com/myghiproj/ahss/-/blob/main/Systemd%20Services/javaserver%40.service)
+
+[Update Script](https://gitlab.com/myghiproj/ahss/-/blob/main/Bash%20Scripts/cookiebot-update.sh)
+
+
+## CONFIGURATION GUIDE
 
 It's necessary to create a file called "application.properties" inside src/main/resources folder.
 
@@ -49,7 +57,8 @@ And you're done!
 
 After compiling to a jar file, the software will look for a bootsecurity.p12 file on the same directory as the .jar file itself.
 
-# SERVER PATHS
+
+## SERVER PATHS
 ### configs:
 
 	https://host/configs [GET]

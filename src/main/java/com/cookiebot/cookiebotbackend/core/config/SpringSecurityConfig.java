@@ -15,8 +15,8 @@ public class SpringSecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		return http
 				.csrf(csrf -> csrf.disable())
-				.authorizeRequests(auth -> {
-					auth.antMatchers("/**").hasRole("ADMIN");
+				.authorizeHttpRequests(auth -> {
+					auth.requestMatchers("/**").hasRole("ADMIN");
 				})
 				.httpBasic(Customizer.withDefaults())
 				.build();

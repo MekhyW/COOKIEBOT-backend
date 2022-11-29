@@ -158,3 +158,12 @@ Json attributes:
 	idMessage : string
 	
 	idMedia : string
+
+
+### stickerdatabase:
+
+	https://host/stickerdatabase [GET/POST]
+
+Json attributes:
+
+	id : string

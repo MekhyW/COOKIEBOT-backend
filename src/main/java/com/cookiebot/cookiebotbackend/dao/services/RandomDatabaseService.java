@@ -28,7 +28,6 @@ public class RandomDatabaseService {
 	}
 	
 	public RandomDatabase insert(RandomDatabase randomDatabase) {
-		
 		if (repository.findAll().size() >= 1000 ) {
 			this.delete();
 		}

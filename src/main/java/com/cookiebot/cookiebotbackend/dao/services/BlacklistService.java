@@ -27,7 +27,6 @@ public class BlacklistService {
 	}
 	
 	public Blacklist insert(String id) {
-		
 		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");
 		} 
@@ -38,10 +37,6 @@ public class BlacklistService {
 	}
 	
 	public void delete(String id) {
-		try {
-			repository.deleteById(id);
-		} catch (Exception e) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
+		repository.deleteById(id);
 	}
 }

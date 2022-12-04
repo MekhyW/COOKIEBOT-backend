@@ -28,7 +28,6 @@ public class StickerDatabaseService {
 	}
 	
 	public StickerDatabase insert(StickerDatabase stickerDatabase) {
-		
 		if (repository.findAll().size() >= 1000 ) {
 			this.delete();
 		}

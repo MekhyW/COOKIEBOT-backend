@@ -27,7 +27,6 @@ public class RuleService {
 	}
 	
 	public Rule insert(String id, Rule rule) {
-
 		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");	
 		} 
@@ -37,11 +36,7 @@ public class RuleService {
 	}
 	
 	public void delete(String id) {
-		try {
-			repository.deleteById(id);
-		} catch (Exception e) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
+		repository.deleteById(id);
 	}
 	
 	public Rule update(String id, Rule rule) {
@@ -53,7 +48,6 @@ public class RuleService {
 	}
 
 	private void updateRules(Rule newRule, Rule rule) {
-		
 		if (rule.getRules() != null) {
 			newRule.setRules(rule.getRules());
 		}

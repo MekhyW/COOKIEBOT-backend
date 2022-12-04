@@ -30,7 +30,6 @@ public class RegisterService {
 	}
 	
 	public Register insert(String id, Register register) {
-		
 		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");	
 		} 
@@ -40,15 +39,10 @@ public class RegisterService {
 	}
 
 	public void delete(String id) {
-		try {
-			repository.deleteById(id);
-		} catch (Exception e) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
+		repository.deleteById(id);
 	}
 	
 	public void insertUser(String id, UserRegister user) {
-		
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
@@ -70,7 +64,6 @@ public class RegisterService {
 	}
 
 	public void deleteUser(String id, UserRegister user) {
-		
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
@@ -97,7 +90,6 @@ public class RegisterService {
 	}
 	
 	public void updateUser(String id, UserRegister user) {
-		
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}

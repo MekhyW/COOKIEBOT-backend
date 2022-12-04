@@ -27,7 +27,6 @@ public class ConfigService {
 	}
 	
 	public Config insert(String id, Config config) {
-		
 		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");
 		} 
@@ -37,11 +36,7 @@ public class ConfigService {
 	}
 	
 	public void delete(String id) {
-		try {
-			repository.deleteById(id);
-		} catch (Exception e) {
-			throw new BadRequestException("ID Must Not Be Null");
-		}
+		repository.deleteById(id);
 	}
 	
 	public Config update(String id, Config config) {
@@ -53,7 +48,6 @@ public class ConfigService {
 	}
 
 	private void updateConfig(Config newConfig, Config config) {
-		
 		if (config.getFurbots() != null) {
 			newConfig.setFurbots(config.getFurbots());
 		}

@@ -87,5 +87,13 @@ public class ConfigService {
 		if (config.getPublisherPost() != null) {
 			newConfig.setPublisherPost(config.getPublisherPost());
 		}
+		
+		if (config.getThreadPosts() != null) {
+			newConfig.setThreadPosts(config.getThreadPosts());
+		}
+		
+		if (config.getMaxPosts() != null) {
+			newConfig.setMaxPosts(config.getMaxPosts());
+		}
 	}
 }

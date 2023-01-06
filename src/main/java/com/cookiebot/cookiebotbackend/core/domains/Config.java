@@ -21,13 +21,16 @@ public class Config implements Serializable {
 	private String language;
 	private Boolean publisherPost;
 	private Boolean publisherAsk;
-	
+	private String threadPosts;
+	private Integer maxPosts;
+
 	public Config() {	
 	}
-	
+
 	public Config(String id, Boolean furbots, String stickerSpamLimit, Integer timeWithoutSendingImages,
 			Integer timeCaptcha, Boolean functionsFun, Boolean functionsUtility, Boolean sfw, String language,
-			Boolean publisherPost, Boolean publisherAsk) {
+			Boolean publisherPost, Boolean publisherAsk, String threadPosts, Integer maxPosts) {
+		super();
 		this.id = id;
 		this.furbots = furbots;
 		this.stickerSpamLimit = stickerSpamLimit;
@@ -39,6 +42,8 @@ public class Config implements Serializable {
 		this.language = language;
 		this.publisherPost = publisherPost;
 		this.publisherAsk = publisherAsk;
+		this.threadPosts = threadPosts;
+		this.maxPosts = maxPosts;
 	}
 
 	public String getId() {
@@ -127,5 +132,21 @@ public class Config implements Serializable {
 
 	public void setPublisherAsk(Boolean publisherAsk) {
 		this.publisherAsk = publisherAsk;
-	}	
+	}
+
+	public String getThreadPosts() {
+		return threadPosts;
+	}
+
+	public void setThreadPosts(String threadPosts) {
+		this.threadPosts = threadPosts;
+	}
+
+	public Integer getMaxPosts() {
+		return maxPosts;
+	}
+
+	public void setMaxPosts(Integer maxPosts) {
+		this.maxPosts = maxPosts;
+	}
 }

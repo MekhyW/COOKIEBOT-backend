@@ -89,6 +89,10 @@ Json attributes:
 	
 	publisherAsk : boolean
 
+	threadPosts : string
+
+	maxPosts : integer
+
 ### registers:
 
 	https://host/registers [GET]

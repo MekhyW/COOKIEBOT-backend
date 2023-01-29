@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,12 @@ public class RegisterResource {
 	}
 	
 	// Manage Users from Register
+	@GetMapping(value = "/{id}/users")
+	public ResponseEntity<List<UserRegister>> findUsers(@PathVariable String id) {
+	List<UserRegister> userList = service.findUsers(id);
+	return ResponseEntity.ok().body(userList);
+	}
+	
 	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
 	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister user) {
 		service.insertUser(id, user);

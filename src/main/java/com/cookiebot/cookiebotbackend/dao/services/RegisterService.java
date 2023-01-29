@@ -42,6 +42,14 @@ public class RegisterService {
 		repository.deleteById(id);
 	}
 	
+	
+	public List<UserRegister> findUsers(String id) {
+		Register register = repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
+		List<UserRegister> userList = register.getUsers();
+		return userList;
+	}
+	
 	public void insertUser(String id, UserRegister user) {
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");

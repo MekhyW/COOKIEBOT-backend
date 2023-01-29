@@ -67,7 +67,7 @@ After compiling to a jar file, the software will look for a bootsecurity.p12 fil
 
 Json attributes:
 
-	id : string 
+	id : string (used in place of {id} as explained above)
 	
 	furbots : boolean
 	
@@ -103,8 +103,10 @@ Json attributes:
 
 Json attributes:
 
-	id : string
+	id : string (used in place of {id} as explained above)
 	
+At /users:
+
 	user : string
 	
 	date : string
@@ -118,7 +120,7 @@ Json attributes:
 
 Json attributes:
 
-	id : string
+	id : string (used in place of {id} as explained above)
 	
 	rules : string
 
@@ -131,7 +133,7 @@ Json attributes:
 
 Json attributes:
 
-	id : string
+	id : string  (used in place of {id} as explained above)
 	
 	message : string
 
@@ -144,7 +146,7 @@ Json attributes:
 
 Json attributes:
 
-	id : string
+	id : string (used in place of {id} as explained above)
 
 
 ### stickers:
@@ -155,7 +157,7 @@ Json attributes:
 
 Json attributes:
 
-	id : string
+	id : string (used in place of {id} as explained above)
 	
 	lastUsed : string
 
@@ -180,3 +182,24 @@ Json attributes:
 Json attributes:
 
 	id : string
+
+	
+### raffles:
+	
+	https://host/raffles [GET]
+	
+	https://host/raffles/{name} [GET, POST, DELETE]
+	
+	https://host/raffles/{name}/participants [GET, POST, PUT, DELETE]
+	
+Json attributes:
+	
+	name : string  (used in place of {name} as explained above)
+	
+	award : string
+	
+	deadline: string
+	
+At /participants:
+
+	user : string

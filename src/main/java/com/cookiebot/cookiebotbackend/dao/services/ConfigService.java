@@ -88,6 +88,10 @@ public class ConfigService {
 			newConfig.setPublisherPost(config.getPublisherPost());
 		}
 		
+		if (config.getPublisherMembersOnly() != null) {
+			newConfig.setPublisherMembersOnly(config.getPublisherMembersOnly());
+		}
+		
 		if (config.getThreadPosts() != null) {
 			newConfig.setThreadPosts(config.getThreadPosts());
 		}

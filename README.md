@@ -8,9 +8,9 @@ Using: Java 19 + Spring Boot + Spring Web + Spring Data MongoDB + Spring Securit
 
 ## RELATED SERVER-SIDE PROJECTS
 
-[Systemd Service](https://gitlab.com/myghiproj/ahss/-/blob/main/Systemd%20Services/javaserver%40.service)
+[Systemd Service](https://gitlab.com/myghiproj/ahss/-/blob/main/SystemdServices/javaserver%40.service)
 
-[Update Script](https://gitlab.com/myghiproj/ahss/-/blob/main/Bash%20Scripts/cookiebot-update.sh)
+[Update Script](https://gitlab.com/myghiproj/ahss/-/blob/main/BashScripts/cookiebot-update.sh)
 
 
 ## CONFIGURATION GUIDE

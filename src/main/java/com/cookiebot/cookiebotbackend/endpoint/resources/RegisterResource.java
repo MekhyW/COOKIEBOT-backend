@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,19 +27,19 @@ public class RegisterResource {
 	private RegisterService service;
 	
 	// Manage Register
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<List<Register>> findAll() {
 		List<Register> registerList = service.findAll();
 		return ResponseEntity.ok().body(registerList);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@GetMapping(value="/{id}")
 	public ResponseEntity<Register> findById(@PathVariable String id) {
 		Register registerList = service.findById(id);
 		return ResponseEntity.ok().body(registerList);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	@PostMapping(value="/{id}")
 	public ResponseEntity<Register> insert(@RequestBody Register register, @PathVariable String id) {
 		service.insert(id, register);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,11 +47,12 @@ public class RegisterResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
+	
 	
 	// Manage Users from Register
 	@GetMapping(value = "/{id}/users")
@@ -58,19 +61,19 @@ public class RegisterResource {
 	return ResponseEntity.ok().body(userList);
 	}
 	
-	@RequestMapping(value="/{id}/users", method=RequestMethod.POST)
+	@PostMapping(value="/{id}/users")
 	public ResponseEntity<Void> insertUser(@PathVariable String id, @RequestBody UserRegister user) {
 		service.insertUser(id, user);
 		return ResponseEntity.ok().build();
 	}
 	
-	@RequestMapping(value="/{id}/users", method=RequestMethod.DELETE)
+	@DeleteMapping(value="/{id}/users")
 	public ResponseEntity<Void> deleteUser(@PathVariable String id, @RequestBody UserRegister user) {
 		service.deleteUser(id, user);
 		return ResponseEntity.ok().build();
 	}
 	
-	@RequestMapping(value="/{id}/users", method=RequestMethod.PUT)
+	@PutMapping(value="/{id}/users")
 	public ResponseEntity<Void> updateUser(@PathVariable String id, @RequestBody UserRegister user) {
 		service.updateUser(id, user);
 		return ResponseEntity.ok().build();

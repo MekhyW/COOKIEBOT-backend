@@ -2,9 +2,10 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
@@ -17,13 +18,13 @@ public class StickerDatabaseResource {
 	@Autowired
 	private StickerDatabaseService service;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<StickerDatabase> findAll() {
 		StickerDatabase stickerArray = service.getRandom();
 		return ResponseEntity.ok().body(stickerArray);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<StickerDatabase> insert(@RequestBody StickerDatabase stickerDatabase) {
 		service.insert(stickerDatabase);
 		return ResponseEntity.ok().build();

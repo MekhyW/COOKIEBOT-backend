@@ -2,9 +2,10 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cookiebot.cookiebotbackend.core.domains.RandomDatabase;
@@ -17,13 +18,13 @@ public class RandomDatabaseResource {
 	@Autowired
 	private RandomDatabaseService service;
 	
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<RandomDatabase> findAll() {
 		RandomDatabase randomArray = service.getRandom();
 		return ResponseEntity.ok().body(randomArray);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@PostMapping
 	public ResponseEntity<RandomDatabase> insert(@RequestBody RandomDatabase randomDatabase) {
 		service.insert(randomDatabase);
 		return ResponseEntity.ok().build();

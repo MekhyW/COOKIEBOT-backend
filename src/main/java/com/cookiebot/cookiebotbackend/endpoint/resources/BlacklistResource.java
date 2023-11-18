@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,19 +24,19 @@ public class BlacklistResource {
 	@Autowired
 	private BlacklistService service;
 
-	@RequestMapping(method=RequestMethod.GET)
+	@GetMapping
 	public ResponseEntity<List<Blacklist>> findAll(){
 		List<Blacklist> blacklist = service.findAll();
 		return ResponseEntity.ok().body(blacklist);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@GetMapping(value="/{id}")
 	public ResponseEntity<Blacklist> findById(@PathVariable String id) {
 		Blacklist blacklist = service.findById(id);
 		return ResponseEntity.ok().body(blacklist);
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	@PostMapping(value="/{id}")
 	public ResponseEntity<Rule> insert(@PathVariable String id) {
 		service.insert(id);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -42,7 +44,7 @@ public class BlacklistResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		service.delete(id);
 		return ResponseEntity.ok().build();

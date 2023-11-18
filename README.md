@@ -3,7 +3,7 @@ Data management and scheduler backend for the Cookiebot and Bombot Telegram bots
 
 This project aims to manage a NoSQL (MongoDB) database with https.
 
-Using: Java 19 + Spring Boot + Spring Web + Spring Data MongoDB + Spring Security
+Using: Java 17 + Spring Boot + Spring Web + Spring Data MongoDB + Spring Security
 
 
 ## RELATED SERVER-SIDE PROJECTS

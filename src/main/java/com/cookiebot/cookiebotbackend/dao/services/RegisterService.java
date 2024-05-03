@@ -61,7 +61,11 @@ public class RegisterService {
 		Integer userSize = userList.size();
 		
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			if (userList.get(userArray).getUser().matches(user.getUser())){
+			String currentUser = userList.get(userArray).getUser();
+			if (currentUser == null) {
+				continue;
+			}
+			if (currentUser.matches(user.getUser())){
 				throw new BadRequestException("User Already Exists");
 			}
 		}
@@ -84,7 +88,11 @@ public class RegisterService {
 		
 		boolean foundUser = false;
 		for (int userArray = userSize-1; userArray >= 0; userArray--) {
-			if (userList.get(userArray).getUser().matches(userToDelete)){	
+			String currentUser = userList.get(userArray).getUser();
+			if (currentUser == null) {
+				continue;
+			}
+			if (currentUser.matches(userToDelete)){	
 				foundUser = true;
 				userList.remove(userArray);
 				register.setUsers(userList);
@@ -108,8 +116,12 @@ public class RegisterService {
 		Integer userSize = userList.size();
 		
 		boolean foundUser = false;
-		for (int userArray = userSize-1; userArray >= 0; userArray--) {	
-			if (userList.get(userArray).getUser().matches(user.getUser())){
+		for (int userArray = userSize-1; userArray >= 0; userArray--) {
+			String currentUser = userList.get(userArray).getUser();
+			if (currentUser == null) {
+				continue;
+			}
+			if (currentUser.matches(user.getUser())){
 				foundUser = true;
 				userList.remove(userArray);
 				userList.addAll(Arrays.asList(user));

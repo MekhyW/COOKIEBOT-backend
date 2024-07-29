@@ -5,6 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Raffle;
@@ -16,9 +21,15 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 @Service
 public class RaffleService {
 	
-	@Autowired
-	private RaffleRepository repository;
-	
+	private final RaffleRepository repository;
+
+	private final MongoOperations mongoOperations;
+
+	public RaffleService(RaffleRepository repository, MongoOperations mongoOperations) {
+		this.repository = repository;
+        this.mongoOperations = mongoOperations;
+    }
+
 	public List<Raffle> findAll(){
 		return repository.findAll();
 	}
@@ -29,13 +40,12 @@ public class RaffleService {
 		return raffle;
 	}
 	
-	public Raffle insert(String name, Raffle raffle) {
-		if (repository.findById(name).orElse(null) != null) {
-			throw new BadRequestException("Name Already Exists");	
-		} 
-		
-		raffle.setName(name);
-		return repository.insert(raffle);
+	public Raffle insert(Raffle raffle) {
+		try {
+			return repository.insert(raffle);
+		} catch (DuplicateKeyException e) {
+			throw new BadRequestException("Raffle with name " + raffle.getName() + " already exists");
+		}
 	}
 
 	public void delete(String name) {
@@ -67,26 +77,18 @@ public class RaffleService {
 		return participantList;
 	}
 	
-	public void insertParticipant(String name, RaffleParticipant participant) {
+	public void insertParticipant(String raffleId, RaffleParticipant participant) {
 		if (participant.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
-		
-		Raffle raffle = repository.findById(name)
-				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<RaffleParticipant> participantList = new ArrayList<RaffleParticipant>(raffle.getParticipants());
 
-		Integer participantSize = participantList.size();
-		
-		for (int participantArray = participantSize-1; participantArray >= 0; participantArray--) {
-			if (participantList.get(participantArray).getUser().matches(participant.getUser())){
-				throw new BadRequestException("User Already Exists");
-			}
-		}
-		
-		participantList.addAll(Arrays.asList(participant));
-		raffle.setParticipants(participantList);
-		repository.save(raffle);
+		repository.findById(raffleId)
+				.orElseThrow(() -> new ObjectNotFoundException("Not found raffled with id " + raffleId));
+
+		Query query = new Query(Criteria.where("_id").is(raffleId));
+		Update update = new Update().addToSet("participants", participant);
+
+		this.mongoOperations.updateFirst(query, update, Raffle.class);
 	}
 
 	public void deleteParticipant(String name, RaffleParticipant participant) {

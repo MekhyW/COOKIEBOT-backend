@@ -1,10 +1,8 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
+import java.util.Objects;
 
-public class RaffleParticipant implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+public class RaffleParticipant {
 	private String user;
 	
 	public RaffleParticipant() {
@@ -21,5 +19,18 @@ public class RaffleParticipant implements Serializable {
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		RaffleParticipant that = (RaffleParticipant) o;
+		return Objects.equals(user, that.user);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(user);
 	}
 }

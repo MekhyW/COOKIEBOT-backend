@@ -1,33 +1,31 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
-
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
 import com.cookiebot.cookiebotbackend.dao.repository.StickerDatabaseRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
-
-import java.util.List;
 
 @Service
 public class StickerDatabaseService {
 
 	private final StickerDatabaseRepository repository;
+	private final MongoOperations mongoOperations;
 
-	public StickerDatabaseService(final StickerDatabaseRepository repository) {
+	public StickerDatabaseService(final StickerDatabaseRepository repository, final MongoOperations mongoOperations) {
 		this.repository = repository;
+        this.mongoOperations = mongoOperations;
     }
 
 	public StickerDatabase getRandom(){
-		List<StickerDatabase> stickerList = repository.findAll();
+		final var agg = Aggregation.newAggregation(
+				Aggregation.sample(1)
+		);
 
-		try {
-			StickerDatabase stickerArray = stickerList.get((int)(stickerList.size() * Math.random()));
-			return stickerArray;
-		} catch (Exception e) {
-			throw new ObjectNotFoundException("Object Not Found");
-		}
+		final var results = mongoOperations.aggregate(agg, StickerDatabase.class, StickerDatabase.class).getMappedResults();
+		return results.isEmpty() ? null : results.get(0);
 	}
 	
 	public StickerDatabase insert(StickerDatabase stickerDatabase) {

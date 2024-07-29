@@ -1,21 +1,25 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
 import com.cookiebot.cookiebotbackend.dao.repository.StickerDatabaseRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class StickerDatabaseService {
 
-	@Autowired
-	private StickerDatabaseRepository repository;
-	
+	private final StickerDatabaseRepository repository;
+	private final MongoOperations mongoOperations;
+
+	public StickerDatabaseService(StickerDatabaseRepository repository, MongoOperations mongoOperations) {
+		this.repository = repository;
+        this.mongoOperations = mongoOperations;
+    }
+
 	public StickerDatabase getRandom(){
 		List<StickerDatabase> stickerList = repository.findAll();
 
@@ -28,23 +32,14 @@ public class StickerDatabaseService {
 	}
 	
 	public StickerDatabase insert(StickerDatabase stickerDatabase) {
-		if (repository.findAll().size() >= 1000 ) {
-			this.delete();
-		}
-		
 		if (stickerDatabase.getId() == null) {
 			throw new BadRequestException("'id' Must Not Be Null");	
-		} 
-		
-		if (repository.findById(stickerDatabase.getId()).orElse(null) != null) {
-			throw new BadRequestException("ID Already Exists");	
-		} 
-		
-		return repository.insert(stickerDatabase);
-	}
-	
-	private void delete() {
-		List<StickerDatabase> stickerList = repository.findAll();
-		repository.deleteById(stickerList.get(0).getId());
+		}
+
+		try {
+			return repository.insert(stickerDatabase);
+		} catch (DuplicateKeyException e) {
+			throw new BadRequestException("ID " + stickerDatabase.getId() + " already exists");
+		}
 	}
 }

@@ -1,14 +1,10 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "stickerdatabase")
-public class StickerDatabase implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+public class StickerDatabase {
 	@Id
 	private String id;
 	

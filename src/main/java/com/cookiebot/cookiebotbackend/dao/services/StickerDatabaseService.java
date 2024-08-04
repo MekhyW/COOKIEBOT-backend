@@ -1,21 +1,24 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
 import com.cookiebot.cookiebotbackend.dao.repository.StickerDatabaseRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
-import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
+
+import java.util.List;
 
 @Service
 public class StickerDatabaseService {
 
-	@Autowired
-	private StickerDatabaseRepository repository;
-	
+	private final StickerDatabaseRepository repository;
+
+	public StickerDatabaseService(final StickerDatabaseRepository repository) {
+		this.repository = repository;
+    }
+
 	public StickerDatabase getRandom(){
 		List<StickerDatabase> stickerList = repository.findAll();
 
@@ -28,23 +31,14 @@ public class StickerDatabaseService {
 	}
 	
 	public StickerDatabase insert(StickerDatabase stickerDatabase) {
-		if (repository.findAll().size() >= 1000 ) {
-			this.delete();
-		}
-		
 		if (stickerDatabase.getId() == null) {
 			throw new BadRequestException("'id' Must Not Be Null");	
-		} 
-		
-		if (repository.findById(stickerDatabase.getId()).orElse(null) != null) {
-			throw new BadRequestException("ID Already Exists");	
-		} 
-		
-		return repository.insert(stickerDatabase);
-	}
-	
-	private void delete() {
-		List<StickerDatabase> stickerList = repository.findAll();
-		repository.deleteById(stickerList.get(0).getId());
+		}
+
+		try {
+			return repository.insert(stickerDatabase);
+		} catch (DuplicateKeyException e) {
+			throw new BadRequestException("ID " + stickerDatabase.getId() + " already exists");
+		}
 	}
 }

@@ -3,6 +3,7 @@ package com.cookiebot.cookiebotbackend.dao.services;
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
 import com.cookiebot.cookiebotbackend.dao.repository.StickerDatabaseRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -57,5 +58,10 @@ public class StickerDatabaseServiceTest {
         service.insert(stickerDatabase);
 
         assertThrows(BadRequestException.class, () -> service.insert(stickerDatabase));
+    }
+
+    @AfterEach
+    public void cleanup() {
+        this.mongoOperations.dropCollection(StickerDatabase.class);
     }
 }

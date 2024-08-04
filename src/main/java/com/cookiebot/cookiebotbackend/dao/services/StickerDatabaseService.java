@@ -1,23 +1,22 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
+import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.StickerDatabase;
 import com.cookiebot.cookiebotbackend.dao.repository.StickerDatabaseRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
 
+import java.util.List;
+
 @Service
 public class StickerDatabaseService {
 
 	private final StickerDatabaseRepository repository;
-	private final MongoOperations mongoOperations;
 
-	public StickerDatabaseService(StickerDatabaseRepository repository, MongoOperations mongoOperations) {
+	public StickerDatabaseService(final StickerDatabaseRepository repository) {
 		this.repository = repository;
-        this.mongoOperations = mongoOperations;
     }
 
 	public StickerDatabase getRandom(){

@@ -37,7 +37,7 @@ public class StickerDatabaseServiceTest {
 
     @Test
     void insertTest() {
-        StickerDatabaseService service = new StickerDatabaseService(repository, mongoOperations);
+        StickerDatabaseService service = new StickerDatabaseService(repository);
 
         StickerDatabase stickerDatabase = new StickerDatabase();
         stickerDatabase.setId("123");
@@ -49,7 +49,7 @@ public class StickerDatabaseServiceTest {
 
     @Test
     void insertWithExistingId() {
-        StickerDatabaseService service = new StickerDatabaseService(repository, mongoOperations);
+        StickerDatabaseService service = new StickerDatabaseService(repository);
 
         StickerDatabase stickerDatabase = new StickerDatabase();
         stickerDatabase.setId("123");

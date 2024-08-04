@@ -41,9 +41,13 @@ public class RaffleResource {
 	
 	@PostMapping(value = "/{name}")
 	public ResponseEntity<Raffle> insert(@RequestBody Raffle raffle, @PathVariable String name) {
-		service.insert(name, raffle);
+		raffle.setName(name);
+
+		service.insert(raffle);
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{name}").buildAndExpand(name).toUri();
+
 		return ResponseEntity.created(uri).build();
 	}
 	

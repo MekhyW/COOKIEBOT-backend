@@ -1,15 +1,14 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "raffles")
-public class Raffle implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Raffle {
 	
 	@Id
 	private String name;
@@ -58,5 +57,23 @@ public class Raffle implements Serializable {
 
 	public void setParticipants(List<RaffleParticipant> participants) {
 		this.participants = participants;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Raffle raffle = (Raffle) o;
+
+		return Objects.equals(name, raffle.name) &&
+				Objects.equals(award, raffle.award) &&
+				Objects.equals(deadline, raffle.deadline) &&
+				Objects.equals(participants, raffle.participants);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, award, deadline, participants);
 	}
 }

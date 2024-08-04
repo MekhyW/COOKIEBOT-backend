@@ -2,6 +2,7 @@ package com.cookiebot.cookiebotbackend.core.domains;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -56,5 +57,23 @@ public class Raffle {
 
 	public void setParticipants(List<RaffleParticipant> participants) {
 		this.participants = participants;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Raffle raffle = (Raffle) o;
+
+		return Objects.equals(name, raffle.name) &&
+				Objects.equals(award, raffle.award) &&
+				Objects.equals(deadline, raffle.deadline) &&
+				Objects.equals(participants, raffle.participants);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, award, deadline, participants);
 	}
 }

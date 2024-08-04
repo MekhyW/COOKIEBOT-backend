@@ -18,6 +18,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataMongoTest
@@ -102,6 +104,71 @@ class RaffleServiceTest {
         // Despite two attempts to add, there should only be one participant in the raffle
         assertEquals(1, updatedRaffle.getParticipants().size());
         assertEquals(participant, updatedRaffle.getParticipants().get(0));
+    }
+
+    @Test
+    void testDeleteParticipant() {
+        final Raffle raffle = new Raffle();
+        raffle.setName("123");
+
+        final RaffleParticipant participantBob = new RaffleParticipant();
+        participantBob.setUser("bob");
+
+        final RaffleParticipant participantAna = new RaffleParticipant();
+        participantAna.setUser("ana");
+
+        raffleService.insert(raffle);
+        raffleService.insertParticipant(raffle.getName(), participantBob);
+        raffleService.insertParticipant(raffle.getName(), participantAna);
+
+        raffleService.deleteParticipant(raffle.getName(), participantBob);
+
+        final Raffle updatedRaffle = repository.findById(raffle.getName()).orElseThrow();
+
+        assertEquals(1, updatedRaffle.getParticipants().size());
+        assertEquals(participantAna, updatedRaffle.getParticipants().get(0));
+    }
+
+    @Test
+    void testDeleteParticipantNonExistent() {
+        final Raffle raffle = new Raffle();
+        raffle.setName("123");
+
+        final RaffleParticipant participantNotInRaffle = new RaffleParticipant();
+        participantNotInRaffle.setUser("bob");
+
+        final RaffleParticipant participantAna = new RaffleParticipant();
+        participantAna.setUser("ana");
+
+        raffle.setParticipants(List.of(participantAna));
+
+        raffleService.insert(raffle);
+        raffleService.insertParticipant(raffle.getName(), participantAna);
+
+        raffleService.deleteParticipant(raffle.getName(), participantNotInRaffle);
+
+        final Raffle updatedRaffle = repository.findById(raffle.getName()).orElseThrow();
+
+        assertEquals(1, updatedRaffle.getParticipants().size());
+        assertEquals(participantAna, updatedRaffle.getParticipants().get(0));
+
+        assertEquals(raffle, updatedRaffle);
+    }
+
+    @Test
+    void testDeleteParticipantNoParticipants() {
+        final Raffle raffle = new Raffle();
+        raffle.setName("123");
+
+        final RaffleParticipant participantNotInRaffle = new RaffleParticipant();
+        participantNotInRaffle.setUser("bob");
+
+        raffleService.insert(raffle);
+        raffleService.deleteParticipant(raffle.getName(), participantNotInRaffle);
+
+        final Raffle updatedRaffle = repository.findById(raffle.getName()).orElseThrow();
+
+        assertEquals(0, updatedRaffle.getParticipants().size());
     }
 
     @AfterEach

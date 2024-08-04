@@ -3,8 +3,8 @@ package com.cookiebot.cookiebotbackend.dao.services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -35,9 +35,8 @@ public class RaffleService {
 	}
 	
 	public Raffle findByName(String name) {
-		Raffle raffle = repository.findById(name)
+		return repository.findById(name)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		return raffle;
 	}
 	
 	public Raffle insert(Raffle raffle) {
@@ -71,10 +70,10 @@ public class RaffleService {
 	}
 	
 	public List<RaffleParticipant> findParticipants(String name) {
-		Raffle raffle = repository.findById(name)
+		final Raffle raffle = repository.findById(name)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<RaffleParticipant> participantList = raffle.getParticipants();
-		return participantList;
+
+		return raffle.getParticipants();
 	}
 	
 	public void insertParticipant(String raffleId, RaffleParticipant participant) {
@@ -85,36 +84,30 @@ public class RaffleService {
 		repository.findById(raffleId)
 				.orElseThrow(() -> new ObjectNotFoundException("Not found raffled with id " + raffleId));
 
-		Query query = new Query(Criteria.where("_id").is(raffleId));
-		Update update = new Update().addToSet("participants", participant);
+		final Query query = new Query(Criteria.where("_id").is(raffleId));
+		final Update update = new Update().addToSet("participants", participant);
 
 		this.mongoOperations.updateFirst(query, update, Raffle.class);
 	}
 
-	public void deleteParticipant(String name, RaffleParticipant participant) {
+	public void deleteParticipant(String raffleId, RaffleParticipant participant) {
 		if (participant.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
-		
-		Raffle raffle = repository.findById(name)
-				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<RaffleParticipant> participantList = new ArrayList<RaffleParticipant>(raffle.getParticipants());
-		String participantToDelete = participant.getUser();
-		Integer participantSize = participantList.size();
-		
-		boolean foundParticipant = false;
-		for (int participantArray = participantSize-1; participantArray >= 0; participantArray--) {
-			if (participantList.get(participantArray).getUser().matches(participantToDelete)){	
-				foundParticipant = true;
-				participantList.remove(participantArray);
-				raffle.setParticipants(participantList);
-				repository.save(raffle);
-			} 
-		}
-		
-		if (foundParticipant == false) {
-			throw new ObjectNotFoundException("Participant Not Found");
-		}
+
+		repository.findById(raffleId)
+				.orElseThrow(() -> new ObjectNotFoundException("Not found raffled with id " + raffleId));
+
+		final Criteria filterUser = Criteria.where(RaffleParticipant.USER_FIELD).is(participant.getUser());
+
+		final Query query = new Query(
+				Criteria.where("_id").is(raffleId)
+				.and("participants").elemMatch(filterUser)
+		);
+
+		final Update update = new Update().pull("participants", Map.of(RaffleParticipant.USER_FIELD, participant.getUser()));
+
+		this.mongoOperations.updateFirst(query, update, Raffle.class);
 	}
 	
 	public void updateParticipant(String name, RaffleParticipant participant) {
@@ -124,7 +117,7 @@ public class RaffleService {
 		
 		Raffle raffle = repository.findById(name)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		List<RaffleParticipant> participantList = new ArrayList<RaffleParticipant>(raffle.getParticipants());
+		List<RaffleParticipant> participantList = new ArrayList<>(raffle.getParticipants());
 		Integer participantSize = participantList.size();
 		
 		boolean foundParticipant = false;
@@ -138,7 +131,7 @@ public class RaffleService {
 			} 
 		}
 		
-		if (foundParticipant == false) {
+		if (!foundParticipant) {
 			throw new ObjectNotFoundException("User Not Found");
 		}
 	}

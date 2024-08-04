@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "raffles")
-public class Raffle implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Raffle {
 	
 	@Id
 	private String name;

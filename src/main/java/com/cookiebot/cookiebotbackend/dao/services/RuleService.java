@@ -13,17 +13,19 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 @Service
 public class RuleService {
 
+	private final RuleRepository repository;
+	
 	@Autowired
-	private RuleRepository repository;
+	public RuleService(RuleRepository repository) {
+		this.repository = repository;
+	}
 	
 	public List<Rule> findAll(){
 		return repository.findAll();
 	}
 	
 	public Rule findById(String id) {
-		Rule rule = repository.findById(id)
-				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		return rule;
+		return repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 	}
 	
 	public Rule insert(String id, Rule rule) {

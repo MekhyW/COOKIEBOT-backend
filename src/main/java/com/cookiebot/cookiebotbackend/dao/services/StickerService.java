@@ -13,17 +13,19 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 @Service
 public class StickerService {
 
+	private final StickerRepository repository;
+	
 	@Autowired
-	private StickerRepository repository;
+	public StickerService(StickerRepository repository) {
+		this.repository = repository;
+	}
 	
 	public List<Sticker> findAll(){
 		return repository.findAll();
 	}
 	
 	public Sticker findById(String id) {
-		Sticker sticker = repository.findById(id)
-				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		return sticker;
+		return repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 	}
 	
 	public Sticker insert(String id, Sticker sticker) {

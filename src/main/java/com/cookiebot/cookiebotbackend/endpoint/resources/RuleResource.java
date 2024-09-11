@@ -22,8 +22,12 @@ import com.cookiebot.cookiebotbackend.dao.services.RuleService;
 @RequestMapping(value = "/rules")
 public class RuleResource {
 
+	private final RuleService service;
+	
 	@Autowired
-	private RuleService service;
+	public RuleResource(RuleService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Rule>> findAll(){

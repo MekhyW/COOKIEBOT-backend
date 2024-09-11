@@ -22,8 +22,12 @@ import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
 @RequestMapping(value = "/configs")
 public class ConfigResource {
 
+	private final ConfigService service;
+	
 	@Autowired
-	private ConfigService service;
+	public ConfigResource(ConfigService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Config>> findAll() {

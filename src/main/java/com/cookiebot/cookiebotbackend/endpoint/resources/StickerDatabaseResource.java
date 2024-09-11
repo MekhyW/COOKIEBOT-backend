@@ -15,8 +15,12 @@ import com.cookiebot.cookiebotbackend.dao.services.StickerDatabaseService;
 @RequestMapping(value = "/stickerdatabase")
 public class StickerDatabaseResource {
 	
+	private final StickerDatabaseService service;
+	
 	@Autowired
-	private StickerDatabaseService service;
+	public StickerDatabaseResource(StickerDatabaseService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<StickerDatabase> findAll() {

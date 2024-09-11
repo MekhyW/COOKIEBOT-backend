@@ -21,8 +21,12 @@ import com.cookiebot.cookiebotbackend.dao.services.BlacklistService;
 @RequestMapping(value = "/blacklist")
 public class BlacklistResource {
 
+	private final BlacklistService service;
+	
 	@Autowired
-	private BlacklistService service;
+	public BlacklistResource(BlacklistService service) {
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<List<Blacklist>> findAll(){

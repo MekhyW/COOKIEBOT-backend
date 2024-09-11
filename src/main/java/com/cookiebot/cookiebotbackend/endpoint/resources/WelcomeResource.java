@@ -22,8 +22,12 @@ import com.cookiebot.cookiebotbackend.dao.services.WelcomeService;
 @RequestMapping(value = "/welcomes")
 public class WelcomeResource {
 
+	private final WelcomeService service;
+	
 	@Autowired
-	WelcomeService service;
+	public WelcomeResource(WelcomeService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Welcome>> findAll(){
@@ -52,7 +56,7 @@ public class WelcomeResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	private ResponseEntity<Void> update(@RequestBody Welcome welcome, @PathVariable String id) {
+	public ResponseEntity<Void> update(@RequestBody Welcome welcome, @PathVariable String id) {
 		service.update(id, welcome);
 		return ResponseEntity.ok().build();
 	}

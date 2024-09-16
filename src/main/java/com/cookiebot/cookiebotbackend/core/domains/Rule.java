@@ -5,33 +5,19 @@ import java.io.Serializable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Document(collection = "rules")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rule implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 6817037389185701590L;
 
 	@Id
 	private String id;
 	private String rules;
-	
-	public Rule(String id, String rules) {
-		super();
-		this.id = id;
-		this.rules = rules;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getRules() {
-		return rules;
-	}
-
-	public void setRules(String rules) {
-		this.rules = rules;
-	}
 }

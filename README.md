@@ -5,13 +5,11 @@ This project aims to manage a NoSQL (MongoDB) database with https.
 
 Using: Java 17 + Spring Boot + Spring Web + Spring Data MongoDB + Spring Security
 
-
 ## RELATED SERVER-SIDE PROJECTS
 
 [Systemd Service](https://gitlab.com/myghiproj/ahss/-/blob/main/SystemdServices/javaserver%40.service)
 
 [Update Script](https://gitlab.com/myghiproj/ahss/-/blob/main/BashScripts/cookiebot-update.sh)
-
 
 ## CONFIGURATION GUIDE
 
@@ -21,13 +19,11 @@ It's necessary to create a file called "application.properties" inside src/main/
 
 	spring.data.mongodb.uri=YourUriHere
 
-
 ### Set your user and password, always with the role "ADMIN":
 
 	spring.security.user.name=username
 	spring.security.user.password=password
 	spring.security.user.roles=ADMIN
-
 
 ### Configure https to encrypt your connection:
 
@@ -56,7 +52,6 @@ Copy the bootsecurity.p12 file to the root folder of the project and finally add
 And you're done!
 
 After compiling to a jar file, the software will look for a bootsecurity.p12 file on the same directory as the .jar file itself.
-
 
 ## SERVER PATHS
 ### configs:

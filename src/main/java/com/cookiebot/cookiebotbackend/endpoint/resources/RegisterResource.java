@@ -23,8 +23,12 @@ import com.cookiebot.cookiebotbackend.dao.services.RegisterService;
 @RequestMapping(value = "/registers")
 public class RegisterResource {
 
+	private final RegisterService service;
+	
 	@Autowired
-	private RegisterService service;
+	public RegisterResource(RegisterService service) {
+		this.service = service;
+	}
 	
 	// Manage Register
 	@GetMapping

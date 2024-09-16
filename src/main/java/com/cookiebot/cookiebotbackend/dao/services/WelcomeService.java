@@ -13,17 +13,19 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 @Service
 public class WelcomeService {
 
+	private final WelcomeRepository repository;
+	
 	@Autowired
-	private WelcomeRepository repository;
+	public WelcomeService(WelcomeRepository repository) {
+		this.repository = repository;
+	}
 	
 	public List<Welcome> findAll(){
 		return repository.findAll();
 	}
 	
 	public Welcome findById(String id) {
-		Welcome welcome = repository.findById(id)
-				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		return welcome;
+		return repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 	}
 	
 	public Welcome insert(String id, Welcome welcome) {

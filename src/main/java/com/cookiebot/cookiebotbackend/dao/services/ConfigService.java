@@ -13,23 +13,26 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 @Service
 public class ConfigService {
 	
-	@Autowired
-	private ConfigRepository repository;
+	private final ConfigRepository repository;
 	
-	public List<Config> findAll(){
+	@Autowired
+	public ConfigService(ConfigRepository repository) {
+		this.repository = repository;
+	}
+	
+	public List<Config> findAll() {
 		return repository.findAll();
 	}
 	
 	public Config findById(String id) {
-		Config config = repository.findById(id)
+		return repository.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundException("Object Not Found"));
-		return config;
 	}
 	
 	public Config insert(String id, Config config) {
 		if (repository.findById(id).orElse(null) != null) {
 			throw new BadRequestException("ID Already Exists");
-		} 
+		}
 		
 		config.setId(id);
 		return repository.insert(config);
@@ -46,7 +49,7 @@ public class ConfigService {
 		updateConfig(newConfig, config);
 		return repository.save(newConfig);
 	}
-
+	
 	private void updateConfig(Config newConfig, Config config) {
 		if (config.getFurbots() != null) {
 			newConfig.setFurbots(config.getFurbots());
@@ -79,11 +82,11 @@ public class ConfigService {
 		if (config.getLanguage() != null) {
 			newConfig.setLanguage(config.getLanguage());
 		}
-
+		
 		if (config.getPublisherAsk() != null) {
 			newConfig.setPublisherAsk(config.getPublisherAsk());
 		}
-
+		
 		if (config.getPublisherPost() != null) {
 			newConfig.setPublisherPost(config.getPublisherPost());
 		}

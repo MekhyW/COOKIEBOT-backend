@@ -23,8 +23,12 @@ import com.cookiebot.cookiebotbackend.dao.services.RaffleService;
 @RequestMapping(value = "/raffles")
 public class RaffleResource {
 
+	private final RaffleService service;
+	
 	@Autowired
-	private RaffleService service;
+	public RaffleResource(RaffleService service) {
+		this.service = service;
+	}
 	
 	// Manage Raffle
 	@GetMapping

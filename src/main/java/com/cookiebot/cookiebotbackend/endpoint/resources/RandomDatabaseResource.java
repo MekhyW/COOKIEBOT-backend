@@ -15,8 +15,12 @@ import com.cookiebot.cookiebotbackend.dao.services.RandomDatabaseService;
 @RequestMapping(value = "/randomdatabase")
 public class RandomDatabaseResource {
 
+	private final RandomDatabaseService service;
+	
 	@Autowired
-	private RandomDatabaseService service;
+	public RandomDatabaseResource(RandomDatabaseService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<RandomDatabase> findAll() {

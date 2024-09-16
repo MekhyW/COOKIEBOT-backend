@@ -22,8 +22,12 @@ import com.cookiebot.cookiebotbackend.dao.services.StickerService;
 @RequestMapping(value = "/stickers")
 public class StickerResource {
 
+	private final StickerService service;
+	
 	@Autowired
-	private StickerService service;
+	public StickerResource(StickerService service) {
+		this.service = service;
+	}
 	
 	@GetMapping
 	public ResponseEntity<List<Sticker>> findAll(){

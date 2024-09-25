@@ -186,3 +186,23 @@ Json attributes:
 At /participants:
 
 	user : string
+
+### users:
+
+	https://host/users [GET, POST]
+	
+	https://host/users/{id} [GET, PUT, DELETE]
+
+Json attributes:
+
+	id : string (used in place of {id} as explained above)
+	
+	username : string
+	
+	firstName : string
+	
+	lastName : string
+	
+	languageCode : string
+	
+	birthdate : string (format: YYYY-MM-DD)

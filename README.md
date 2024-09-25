@@ -206,3 +206,27 @@ Json attributes:
 	languageCode : string
 	
 	birthdate : string (format: YYYY-MM-DD)
+
+### admins:
+
+    https://host/admins [GET]
+    
+    https://host/admins/{groupId} [GET, POST, PUT, DELETE]
+    
+    https://host/admins/user/{userId} [GET]
+
+Json attributes:
+
+    groupId : string
+	
+    adminUsers : list of users
+
+At /user:
+
+    id : string
+	
+    username : string
+	
+    firstName : string
+	
+    lastName : string

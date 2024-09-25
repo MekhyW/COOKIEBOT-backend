@@ -145,19 +145,6 @@ Json attributes:
 	id : string (used in place of {id} as explained above)
 
 
-### stickers:
-
-	https://host/stickers [GET]
-	
-	https://host/stickers/{id} [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-	
-	lastUsed : string
-
-
 ### randomdatabase:
 
 	https://host/randomdatabase [GET/POST]

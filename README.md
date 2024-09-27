@@ -145,19 +145,6 @@ Json attributes:
 	id : string (used in place of {id} as explained above)
 
 
-### stickers:
-
-	https://host/stickers [GET]
-	
-	https://host/stickers/{id} [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-	
-	lastUsed : string
-
-
 ### randomdatabase:
 
 	https://host/randomdatabase [GET/POST]
@@ -199,3 +186,47 @@ Json attributes:
 At /participants:
 
 	user : string
+
+### users:
+
+	https://host/users [GET, POST]
+	
+	https://host/users/{id} [GET, PUT, DELETE]
+
+Json attributes:
+
+	id : string (used in place of {id} as explained above)
+	
+	username : string
+	
+	firstName : string
+	
+	lastName : string
+	
+	languageCode : string
+	
+	birthdate : string (format: YYYY-MM-DD)
+
+### admins:
+
+    https://host/admins [GET]
+    
+    https://host/admins/{groupId} [GET, POST, PUT, DELETE]
+    
+    https://host/admins/user/{userId} [GET]
+
+Json attributes:
+
+    groupId : string
+	
+    adminUsers : list of users
+
+At /user:
+
+    id : string
+	
+    username : string
+	
+    firstName : string
+	
+    lastName : string

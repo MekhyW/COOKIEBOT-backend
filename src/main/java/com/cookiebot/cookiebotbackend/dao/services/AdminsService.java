@@ -1,14 +1,19 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+
 import com.cookiebot.cookiebotbackend.core.domains.Admins;
 import com.cookiebot.cookiebotbackend.dao.repository.AdminsRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminsService {

@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admins implements Serializable {
+public class Admins {
 
-    private static final long serialVersionUID = 1L;
+
 
     @Id
     private String groupId;

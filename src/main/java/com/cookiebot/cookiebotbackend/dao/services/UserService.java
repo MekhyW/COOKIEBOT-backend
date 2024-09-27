@@ -30,10 +30,12 @@ public class UserService {
     }
 
     public User insert(User user) {
-        if (user.getId() != null && repository.existsById(user.getId())) {
+        try {
+            return repository.save(user);
+        } catch (DuplicateKeyException e) {
             throw new BadRequestException("User with this ID already exists");
         }
-        return repository.save(user);
+
     }
 
     public void delete(String id) {

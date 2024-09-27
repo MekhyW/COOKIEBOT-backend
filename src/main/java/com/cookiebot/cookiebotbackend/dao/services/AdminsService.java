@@ -14,11 +14,14 @@ import java.util.stream.Collectors;
 public class AdminsService {
 
     private final AdminsRepository repository;
+    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public AdminsService(AdminsRepository repository) {
+    public AdminsService(AdminsRepository repository, MongoTemplate mongoTemplate) {
         this.repository = repository;
+        this.mongoTemplate = mongoTemplate;
     }
+
 
     public List<Admins> findAll() {
         return repository.findAll();
@@ -30,16 +33,22 @@ public class AdminsService {
     }
 
     public Admins insert(Admins admins) {
-        if (repository.existsById(admins.getGroupId())) {
+       try {
+            return repository.save(admins);
+        } catch (DuplicateKeyException e) {
             throw new BadRequestException("Admins already exist for group: " + admins.getGroupId());
         }
-        return repository.save(admins);
     }
 
     public Admins update(String groupId, Admins admins) {
-        Admins existingAdmins = findByGroupId(groupId);
-        existingAdmins.setAdminUsers(admins.getAdminUsers());
-        return repository.save(existingAdmins);
+        final var filter = new Query().addCriteria(Criteria.where("id").is(groupId));
+        final var update = new Update().set("adminUsers", admins.getAdminUsers());
+        final var result = mongoTemplate.updateFirst(filter, update, Admins.class);
+
+        if (result.getMatchedCount() < 1)
+           throw new ObjectNotFoundException("Admins not found for group: " + groupId);
+        
+        return admins;
     }
 
     public void delete(String groupId) {
@@ -50,10 +59,11 @@ public class AdminsService {
     }
 
     public List<String> findGroupsWhereUserIsAdmin(String userId) {
-        return repository.findAll().stream()
-                .filter(admins -> admins.getAdminUsers().stream()
-                        .anyMatch(user -> user.getId().equals(userId)))
-                .map(Admins::getGroupId)
-                .collect(Collectors.toList());
+        final var filterUser = Criteria.where("id").is(userId);
+        final var query = new Query(
+                Criteria.where("adminUsers").elemMatch(filterUser)
+        );
+
+        return this.mongoTemplate.find(query, Admins.class).stream().map(Admins::getGroupId).toList();
     }
 }

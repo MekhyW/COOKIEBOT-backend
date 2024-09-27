@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
@@ -14,9 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     private String id;

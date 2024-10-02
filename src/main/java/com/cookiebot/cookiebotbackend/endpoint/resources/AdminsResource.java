@@ -34,11 +34,11 @@ public class AdminsResource {
         return ResponseEntity.ok().body(admins);
     }
 
-    @PostMapping
-    public ResponseEntity<Admins> insert(@RequestBody Admins admins) {
+    @PostMapping("/{groupId}")
+    public ResponseEntity<Admins> insert(@PathVariable String groupId, @RequestBody Admins admins) {
+        admins.setGroupId(groupId);
         admins = service.insert(admins);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{groupId}").buildAndExpand(admins.getGroupId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).body(admins);
     }
 

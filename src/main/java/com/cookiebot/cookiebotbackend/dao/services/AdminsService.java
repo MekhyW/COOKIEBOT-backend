@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -21,7 +20,6 @@ public class AdminsService {
     private final AdminsRepository repository;
     private final MongoTemplate mongoTemplate;
 
-    @Autowired
     public AdminsService(AdminsRepository repository, MongoTemplate mongoTemplate) {
         this.repository = repository;
         this.mongoTemplate = mongoTemplate;

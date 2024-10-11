@@ -2,7 +2,6 @@ package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Config;
@@ -15,7 +14,6 @@ public class ConfigService {
 	
 	private final ConfigRepository repository;
 	
-	@Autowired
 	public ConfigService(ConfigRepository repository) {
 		this.repository = repository;
 	}

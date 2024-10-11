@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Blacklist;
@@ -15,7 +14,6 @@ public class BlacklistService {
 	
 	private final BlacklistRepository repository;
 	
-	@Autowired
 	public BlacklistService(BlacklistRepository repository) {
 		this.repository = repository;
 	}

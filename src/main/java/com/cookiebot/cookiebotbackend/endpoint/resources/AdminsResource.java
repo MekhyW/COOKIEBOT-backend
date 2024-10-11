@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.endpoint.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,7 +16,6 @@ public class AdminsResource {
 
     private final AdminsService service;
 
-    @Autowired
     public AdminsResource(AdminsService service) {
         this.service = service;
     }

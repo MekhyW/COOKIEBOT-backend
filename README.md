@@ -186,7 +186,7 @@ Json attributes:
 	
 	birthdate : string (format: YYYY-MM-DD)
 
-### admins:
+### groups:
 
     https://host/groups [GET]
     
@@ -209,3 +209,7 @@ At /admins:
     firstName : string
 	
     lastName : string
+    
+    languageCode : string
+    
+    birthdate : LocalDate

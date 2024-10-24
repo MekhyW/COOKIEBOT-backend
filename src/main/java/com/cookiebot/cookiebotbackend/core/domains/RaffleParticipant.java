@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 public class RaffleParticipant {
 
 	public static final String USER_FIELD = "user";
-
 	private String user;
 }

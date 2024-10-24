@@ -57,9 +57,8 @@ public class GroupResource {
     
 	// Manage Admins from Group
 	@GetMapping(value = "/{id}/admins")
-	public ResponseEntity<List<User>> findAdmins(@PathVariable String id) {
-	List<User> userList = service.findAdmins(id);
-	return ResponseEntity.ok().body(userList);
+	public ResponseEntity<Set<String>> findAdmins(@PathVariable String id) {
+	return ResponseEntity.ok().body(service.findAdmins(id));
 	}
 	
 	@PostMapping(value="/{id}/admins")

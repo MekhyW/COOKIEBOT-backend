@@ -1,6 +1,5 @@
 package com.cookiebot.cookiebotbackend.endpoint.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ public class RandomDatabaseResource {
 
 	private final RandomDatabaseService service;
 	
-	@Autowired
 	public RandomDatabaseResource(RandomDatabaseService service) {
 		this.service = service;
 	}

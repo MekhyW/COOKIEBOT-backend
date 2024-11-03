@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
+	public static final String USER_FIELD = "username";
 
     @Id
     private String id;

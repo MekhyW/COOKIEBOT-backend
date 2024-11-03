@@ -3,7 +3,6 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,6 @@ public class BlacklistResource {
 
 	private final BlacklistService service;
 	
-	@Autowired
 	public BlacklistResource(BlacklistService service) {
 		this.service = service;
 	}

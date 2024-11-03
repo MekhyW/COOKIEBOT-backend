@@ -2,7 +2,6 @@ package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Welcome;
@@ -15,7 +14,6 @@ public class WelcomeService {
 
 	private final WelcomeRepository repository;
 	
-	@Autowired
 	public WelcomeService(WelcomeRepository repository) {
 		this.repository = repository;
 	}

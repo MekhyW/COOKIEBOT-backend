@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Register;
@@ -18,7 +17,6 @@ public class RegisterService {
 	
 	private final RegisterRepository repository;
 	
-	@Autowired
 	public RegisterService(RegisterRepository repository) {
 		this.repository = repository;
 	}

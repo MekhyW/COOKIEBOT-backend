@@ -3,7 +3,6 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +23,6 @@ public class RuleResource {
 
 	private final RuleService service;
 	
-	@Autowired
 	public RuleResource(RuleService service) {
 		this.service = service;
 	}

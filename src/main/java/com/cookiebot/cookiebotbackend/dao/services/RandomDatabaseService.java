@@ -3,7 +3,6 @@ package com.cookiebot.cookiebotbackend.dao.services;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.RandomDatabase;
@@ -18,7 +17,6 @@ public class RandomDatabaseService {
 	
 	private final RandomDatabaseRepository repository;
 	
-	@Autowired
 	public RandomDatabaseService(RandomDatabaseRepository repository) {
 		this.repository = repository;
 	}

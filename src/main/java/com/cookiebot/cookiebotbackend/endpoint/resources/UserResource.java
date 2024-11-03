@@ -3,7 +3,6 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 import java.net.URI;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,7 +16,6 @@ public class UserResource {
 
     private final UserService service;
 
-    @Autowired
     public UserResource(UserService service) {
         this.service = service;
     }

@@ -165,28 +165,7 @@ Json attributes:
 Json attributes:
 
 	id : string
-
 	
-### raffles:
-	
-	https://host/raffles [GET]
-	
-	https://host/raffles/{name} [GET, POST, DELETE]
-	
-	https://host/raffles/{name}/participants [GET, POST, PUT, DELETE]
-	
-Json attributes:
-	
-	name : string  (used in place of {name} as explained above)
-	
-	award : string
-	
-	deadline: string
-	
-At /participants:
-
-	user : string
-
 ### users:
 
 	https://host/users [GET, POST]
@@ -207,21 +186,21 @@ Json attributes:
 	
 	birthdate : string (format: YYYY-MM-DD)
 
-### admins:
+### groups:
 
-    https://host/admins [GET]
+    https://host/groups [GET]
     
-    https://host/admins/{groupId} [GET, POST, PUT, DELETE]
+    https://host/groups/{groupId} [GET, POST, DELETE]
     
-    https://host/admins/user/{userId} [GET]
+    https://host/groups/{groupId}/admins [GET, POST, PUT, DELETE]
 
 Json attributes:
 
     groupId : string
+    
+    adminUsers : arraylist
 	
-    adminUsers : list of users
-
-At /user:
+At /admins:
 
     id : string
 	
@@ -230,3 +209,7 @@ At /user:
     firstName : string
 	
     lastName : string
+    
+    languageCode : string
+    
+    birthdate : LocalDate

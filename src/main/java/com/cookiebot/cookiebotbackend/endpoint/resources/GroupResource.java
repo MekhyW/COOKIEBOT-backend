@@ -4,6 +4,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.Set;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.cookiebot.cookiebotbackend.core.domains.Group;
 import com.cookiebot.cookiebotbackend.dao.services.GroupService;
 
+@Tag(name = "groups", description = "telegram groups API")
 @RestController
 @RequestMapping(value = "/groups")
 public class GroupResource {
@@ -28,12 +35,21 @@ public class GroupResource {
         this.service = service;
     }
 
+    @Operation(summary = "Get all groups", description = "Get all registered telegram groups")
     @GetMapping
     public ResponseEntity<List<Group>> findAll() {
         List<Group> adminsList = service.findAll();
         return ResponseEntity.ok().body(adminsList);
     }
 
+
+    @Operation(summary = "Find a group by id", description = "Find a telegram group by id")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description = "Success", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Group.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Group does not exist")
+    })
     @GetMapping(value="/{id}")
     public ResponseEntity<Group> findByGroupId(@PathVariable String id) {
         Group admins = service.findByGroupId(id);

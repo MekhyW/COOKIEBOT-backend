@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cookiebot.cookiebotbackend.core.domains.Group;
-import com.cookiebot.cookiebotbackend.core.domains.User;
 import com.cookiebot.cookiebotbackend.dao.services.GroupService;
 
 @RestController
@@ -35,13 +34,13 @@ public class GroupResource {
         return ResponseEntity.ok().body(adminsList);
     }
 
-    @GetMapping(value="/{groupId}")
+    @GetMapping(value="/{id}")
     public ResponseEntity<Group> findByGroupId(@PathVariable String id) {
         Group admins = service.findByGroupId(id);
         return ResponseEntity.ok().body(admins);
     }
 
-    @PostMapping("/{groupId}")
+    @PostMapping("/{id}")
     public ResponseEntity<Group> insert(@PathVariable String id, @RequestBody Group group) {
         group.setGroupId(id);
         group = service.insert(group);
@@ -49,7 +48,7 @@ public class GroupResource {
         return ResponseEntity.created(uri).body(group);
     }
 
-    @DeleteMapping(value="/{groupId}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

@@ -190,13 +190,13 @@ Json attributes:
 
     https://host/groups [GET]
     
-    https://host/groups/{groupId} [GET, POST, DELETE]
+    https://host/groups/{id} [GET, POST, DELETE]
     
-    https://host/groups/{groupId}/admins [GET, POST, PUT, DELETE]
+    https://host/groups/{id}/admins [GET, POST, PUT, DELETE]
 
 Json attributes:
 
-    groupId : string
+    id : string
     
     adminUsers : arraylist
 	

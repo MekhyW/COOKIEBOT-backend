@@ -168,7 +168,7 @@ Json attributes:
 	
 ### users:
 
-	https://host/users [GET, POST]
+	https://host/users [GET, POST] - Supports ?username=<username> to search by username
 	
 	https://host/users/{id} [GET, PUT, DELETE]
 

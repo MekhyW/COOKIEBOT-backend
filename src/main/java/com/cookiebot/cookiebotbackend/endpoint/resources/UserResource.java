@@ -2,6 +2,7 @@ package com.cookiebot.cookiebotbackend.endpoint.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class UserResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
-        List<User> userList = service.findAll();
+    public ResponseEntity<List<User>> findAll(@RequestParam Optional<String> username) {
+        List<User> userList = service.findAll(username);
         return ResponseEntity.ok().body(userList);
     }
 
@@ -31,7 +32,7 @@ public class UserResource {
         User user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
-
+    
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user) {
         user = service.insert(user);

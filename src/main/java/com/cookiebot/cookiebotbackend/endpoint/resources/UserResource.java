@@ -23,8 +23,9 @@ public class UserResource {
 
     @GetMapping
     public ResponseEntity<List<User>> findAll(@RequestParam Optional<String> username) {
-        List<User> userList = service.findAll(username);
-        return ResponseEntity.ok().body(userList);
+        List<User> users = service.findAll(username);
+        return ResponseEntity.ok().body(users);
+
     }
 
     @GetMapping(value="/{id}")

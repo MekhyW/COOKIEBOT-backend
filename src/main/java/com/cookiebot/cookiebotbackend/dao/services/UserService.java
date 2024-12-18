@@ -22,8 +22,7 @@ public class UserService {
 
     public List<User> findAll(Optional<String> username) {
         if (username.isPresent()) {
-            List<User> users = repository.findByUsername(username.get());
-            return users;
+            return repository.findByUsername(username.get());;
             
         } else {
             return repository.findAll();

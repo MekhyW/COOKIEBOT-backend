@@ -1,6 +1,7 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,13 @@ public class UserService {
         this.repository = repository;
     }
 
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<User> findAll(Optional<String> username) {
+        if (username.isPresent()) {
+            return repository.findByUsername(username.get());;
+            
+        } else {
+            return repository.findAll();
+        }
     }
 
     public User findById(String id) {

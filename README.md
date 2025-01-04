@@ -53,163 +53,18 @@ And you're done!
 
 After compiling to a jar file, the software will look for a bootsecurity.p12 file on the same directory as the .jar file itself.
 
-## SERVER PATHS
-### configs:
 
-	https://host/configs [GET]
-	
-	https://host/configs/{id} [GET, POST, PUT, DELETE] 
+## Swagger
 
-Json attributes:
+The swagger is available at `/swagger-ui/index.html`
 
-	id : string (used in place of {id} as explained above)
-	
-	furbots : boolean
-	
-	stickerSpamLimit : integer
-	
-	timeWithoutSendingImages : integer
-	
-	timeCaptcha : integer
-	
-	functionsFun : boolean
-	
-	functionsUtility : boolean
-	
-	sfw : boolean
-	
-	language : string
+### Generating the Swagger file
 
-	publisherPost : boolean
-	
-	publisherAsk : boolean
+```shell
+mvn springdoc-openapi:generate
+```
 
-	threadPosts : string
+The OpenAPI file will be generated at `target/openapi.json`
 
-	maxPosts : integer
+You can open the file on a swagger editor such as https://editor.swagger.io/ or use an IDE such as **VSCode** with the swagger extension installed.
 
-### registers:
-
-	https://host/registers [GET]
-	
-	https://host/registers/{id} [GET, POST, DELETE]
-	
-	https://host/registers/{id}/users [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-	
-At /users:
-
-	user : string
-	
-	date : string
-
-	accountId : string
-
-### rules:
-
-	https://host/rules [GET]
-	
-	https://host/rules/{id} [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-	
-	rules : string
-
-
-### welcomes:
-
-	https://host/welcomes [GET]
-	
-	https://host/welcomes/{id} [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-	id : string  (used in place of {id} as explained above)
-	
-	message : string
-
-
-### blacklist:
-
-	https://host/blacklist [GET]
-	
-	https://host/blacklist/{id} [GET, POST, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-
-
-### randomdatabase:
-
-	https://host/randomdatabase [GET/POST]
-
-Json attributes:
-
-	id : string
-	
-	idMessage : string
-	
-	idMedia : string
-
-
-### stickerdatabase:
-
-	https://host/stickerdatabase [GET/POST]
-
-Json attributes:
-
-	id : string
-	
-### users:
-
-	https://host/users [GET, POST] - Supports ?username=<username> to search by username
-	
-	https://host/users/{id} [GET, PUT, DELETE]
-
-Json attributes:
-
-	id : string (used in place of {id} as explained above)
-	
-	username : string
-	
-	firstName : string
-	
-	lastName : string
-	
-	languageCode : string
-	
-	birthdate : string (format: YYYY-MM-DD)
-
-### groups:
-
-    https://host/groups [GET]
-    
-    https://host/groups/{id} [GET, POST, DELETE]
-    
-    https://host/groups/{id}/admins [GET, POST, PUT, DELETE]
-
-Json attributes:
-
-    id : string
-    
-    adminUsers : arraylist
-	
-At /admins:
-
-    id : string
-	
-    username : string
-	
-    firstName : string
-	
-    lastName : string
-    
-    languageCode : string
-    
-    birthdate : LocalDate

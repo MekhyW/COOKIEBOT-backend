@@ -42,7 +42,6 @@ public class GroupResource {
         return ResponseEntity.ok().body(adminsList);
     }
 
-
     @Operation(summary = "Find a group by id", description = "Find a telegram group by id")
     @ApiResponses( value = {
             @ApiResponse(responseCode = "200", description = "Success", content = {

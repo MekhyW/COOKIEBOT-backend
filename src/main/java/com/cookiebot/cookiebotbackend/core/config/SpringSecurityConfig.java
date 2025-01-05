@@ -14,7 +14,9 @@ public class SpringSecurityConfig {
 	@Bean
 	SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").anonymous())
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/**").hasRole("ADMIN"))
-				.httpBasic(Customizer.withDefaults()).build();
+				.httpBasic(Customizer.withDefaults())
+				.build();
 	}
 }

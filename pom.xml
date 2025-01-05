@@ -114,6 +114,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <attachArtifact>true</attachArtifact>
+          <outputDir>${pom.basedir}/docs</outputDir>
+        </configuration>
       </plugin>
 
       <plugin>

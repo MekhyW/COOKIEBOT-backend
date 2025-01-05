@@ -1,4 +1,7 @@
 # COOKIEBOT-backend
+
+[![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/MekhyW/COOKIEBOT-backend/refs/heads/main/docs/openapi.json)
+
 Data management and scheduler backend for the Cookiebot and Bombot Telegram bots
 
 This project aims to manage a NoSQL (MongoDB) database with https.
@@ -64,7 +67,7 @@ The swagger is available at `/swagger-ui/index.html`
 mvn springdoc-openapi:generate
 ```
 
-The OpenAPI file will be generated at `target/openapi.json`
+The OpenAPI file will be generated at [`docs/openapi.json`](./docs/openapi.json)
 
 You can open the file on a swagger editor such as https://editor.swagger.io/ or use an IDE such as **VSCode** with the swagger extension installed.
 

@@ -39,3 +39,6 @@ build/
 *.json
 application.properties
 bootsecurity.p12
+
+### Ignore OpenAPI JSON ###
+!/docs/openapi.json

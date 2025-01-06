@@ -28,6 +28,5 @@ public class EventService {
         } catch (DuplicateKeyException e) {
             throw new BadRequestException("Event with this ID already exists");
         }
-
     }
 }

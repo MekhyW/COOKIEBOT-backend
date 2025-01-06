@@ -10,6 +10,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.cookiebot.cookiebotbackend.core.domains.Event;
 import com.cookiebot.cookiebotbackend.dao.services.EventService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/events")
 public class EventResource {
@@ -24,11 +26,10 @@ public class EventResource {
     public ResponseEntity<List<Event>> findAll() {
         List<Event> events = service.findAll();
         return ResponseEntity.ok().body(events);
-
     }
 
     @PostMapping
-    public ResponseEntity<Event> insert(@RequestBody Event event) {
+    public ResponseEntity<Event> insert(@RequestBody @Valid Event event) {
         event = service.insert(event);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(event.getId()).toUri();

@@ -1,15 +1,11 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
-import java.time.LocalDate;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import com.cookiebot.cookiebotbackend.core.validators.ValidDate;
 
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

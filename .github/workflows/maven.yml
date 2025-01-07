@@ -14,3 +14,20 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots verify
+
+      - name: Check if OpenAPI JSON is up to date
+        run: |
+          cp ./docs/openapi.json ./docs/openapi-new.json
+          git checkout ./docs/openapi.json
+          
+          export current=$(cat ./docs/openapi.json)
+          export new=$(cat ./docs/openapi-new.json)
+          
+          mv -f ./docs/openapi-new.json ./docs/openapi.json
+          
+          if [[ $(jq -n --argjson a "$current" --argjson b "$new" '$a == $b') == 'true' ]]; then
+            echo "The file 'docs/openapi.json' is up to date."
+          else
+            echo "The file 'docs/openapi.json' is not up to date. You should run mvn verify locally and commit the file."
+            exit 1
+          fi

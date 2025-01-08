@@ -157,4 +157,30 @@ class GroupServiceTest {
         Set<String> foundAdmins = groupService.findAdmins(group.getGroupId());
         assertThat(foundAdmins).isEqualTo(updatedAdmins);
     }
+
+    @Test
+    public void testIsAdmin_Success() {
+        Group group = new Group("group1", Set.of("admin1", "admin2"));
+        groupService.insert(group);
+
+        var isAdmin = groupService.isAdmin(group.getAdminUsers().stream().toList().get(0), group.getGroupId());
+
+        assertTrue(isAdmin);
+    }
+
+    @Test
+    public void testIsAdmin_UserNotAdmin() {
+        Group group = new Group("group1", Set.of("admin1", "admin2"));
+
+        var isAdmin = groupService.isAdmin("userNotAdmin", group.getGroupId());
+
+        assertFalse(isAdmin);
+    }
+
+    @Test
+    public void testIsAdmin_GroupDoesNotExist() {
+        var isAdmin = groupService.isAdmin("user", "group");
+
+        assertFalse(isAdmin);
+    }
 }

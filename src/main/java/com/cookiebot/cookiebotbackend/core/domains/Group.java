@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Group {
     public static final String GROUP_ID_FIELD = "groupId";
+    public static final String ADMIN_USERS_FIELD = "adminUsers";
 
     @Indexed(unique = true)
     private String groupId;

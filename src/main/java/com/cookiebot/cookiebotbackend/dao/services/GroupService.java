@@ -1,6 +1,7 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -32,6 +33,10 @@ public class GroupService {
 	public Group findByGroupId(String groupId) {
 		return repository.findByGroupId(groupId)
 				.orElseThrow(() -> new ObjectNotFoundException("Group not found: " + groupId));
+	}
+
+	public Stream<Group> findGroupsUserIsAdmin(String userId) {
+		return this.repository.findAllByAdminUsersContaining(userId);
 	}
 
 	public Group insert(Group group) {

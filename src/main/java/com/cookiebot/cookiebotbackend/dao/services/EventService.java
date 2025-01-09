@@ -1,7 +1,10 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
+import com.cookiebot.cookiebotbackend.core.domains.Group;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +17,11 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 public class EventService {
 
     private final EventRepository repository;
+    private final GroupService groupService;
 
-    public EventService(EventRepository repository) {
+    public EventService(EventRepository repository, GroupService groupService) {
         this.repository = repository;
+        this.groupService = groupService;
     }
 
     public List<Event> findAll() {
@@ -34,6 +39,15 @@ public class EventService {
     public Event findById(String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Event not found"));
+    }
+
+    public Stream<Event> findByGroupIdIn(Collection<String> groupIds) {
+        return repository.findAllByGroupIdIn(groupIds);
+    }
+
+    public Stream<Event> findEventsEditable(String userId) {
+        final var groups = this.groupService.findGroupsUserIsAdmin(userId).map(Group::getGroupId).toList();
+        return this.findByGroupIdIn(groups);
     }
 
     public void delete(String id) {

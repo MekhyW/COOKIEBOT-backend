@@ -121,6 +121,19 @@ class GroupServiceTest {
     }
 
     @Test
+    public void testFindGroupsUserIsAdmin() {
+        String admin = "admin1";
+        Group groupDora = new Group("dora", Set.of(admin, "admin2"));
+        Group groupDorit = new Group("dorit", Set.of("admin2"));
+
+        groupService.insert(groupDora);
+        groupService.insert(groupDorit);
+
+        List<Group> foundGroups = groupService.findGroupsUserIsAdmin(admin).toList();
+        assertThat(foundGroups).containsExactly(groupDora);
+    }
+
+    @Test
     public void testInsertAdmins() {
         Group group = new Group("group1", Set.of("admin2"));
         groupService.insert(group);
@@ -171,6 +184,7 @@ class GroupServiceTest {
     @Test
     public void testIsAdmin_UserNotAdmin() {
         Group group = new Group("group1", Set.of("admin1", "admin2"));
+        groupService.insert(group);
 
         var isAdmin = groupService.isAdmin("userNotAdmin", group.getGroupId());
 

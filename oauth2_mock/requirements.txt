@@ -1,0 +1,4 @@
+pyjwt
+fastapi
+cryptography
+uvicorn

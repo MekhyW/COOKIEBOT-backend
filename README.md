@@ -28,6 +28,18 @@ It's necessary to create a file called "application.properties" inside src/main/
 	spring.security.user.password=password
 	spring.security.user.roles=ADMIN
 
+### Configure the JWT token validation
+
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://<host>/.well-known/jwks.json
+          issuer-uri: http://<host>
+```
+
 ### Configure https to encrypt your connection:
 
 By default, unprivileged users on Linux are blocked from hosting on ports under 1024.
@@ -70,4 +82,8 @@ mvn springdoc-openapi:generate
 The OpenAPI file will be generated at [`docs/openapi.json`](./docs/openapi.json)
 
 You can open the file on a swagger editor such as https://editor.swagger.io/ or use an IDE such as **VSCode** with the swagger extension installed.
+
+## Contributing
+
+We love contributions. You can follow the [contributing documentation](./contributing.md).
 

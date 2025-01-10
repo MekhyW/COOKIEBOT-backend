@@ -23,6 +23,9 @@ public class Event {
     @Id
     private String id;
 
+    @NotBlank(message = "groupId is required")
+    private String groupId;
+
     @NotBlank(message = "name is required")
     private String name;
 

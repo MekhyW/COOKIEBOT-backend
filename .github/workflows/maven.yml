@@ -13,7 +13,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -Dparallel=none verify
+        run: mvn verify
 
       - name: Check if OpenAPI JSON is up to date
         run: |

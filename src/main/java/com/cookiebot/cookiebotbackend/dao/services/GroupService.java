@@ -91,7 +91,9 @@ public class GroupService {
 
 	public boolean isAdmin(String userId, String groupId) {
 		final Query query = new Query(
-				Criteria.where(Group.GROUP_ID_FIELD).is(groupId).and(Group.ADMIN_USERS_FIELD).is(userId));
+				Criteria.where(Group.GROUP_ID_FIELD).is(groupId)
+						.and(Group.ADMIN_USERS_FIELD).is(userId)
+		);
 
 		var result = this.mongoOperations.count(query, Group.class);
 

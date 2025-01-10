@@ -4,13 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.NumberFormat;
 
-import com.cookiebot.cookiebotbackend.core.validators.ValidDate;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.ZonedDateTime;
 
 @Document(collection = "events")
 @Data
@@ -47,12 +47,10 @@ public class Event {
     private String coverImageUrl;
 
     @NotNull(message = "startDate is required")
-    @ValidDate(message = "startDate must be in yyyy/mm/dd format and be valid")
-    private String startDate;
+    private ZonedDateTime startDate;
 
     @NotNull(message = "endDate is required")
-    @ValidDate(message = "endDate must be in yyyy/mm/dd format and be valid")
-    private String endDate;
+    private ZonedDateTime endDate;
 
     @NumberFormat
     @NotNull(message = "price is required")

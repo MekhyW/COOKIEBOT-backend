@@ -35,7 +35,7 @@ public class SpringSecurityConfig {
 	@Order(1)
 	SecurityFilterChain basicAuthSecurity(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
-				.securityMatcher("/bff/**", "/v3/api-docs/**")
+				.securityMatcher("/bff/**", "/v3/api-docs/**", "/swagger-ui/**")
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/bff/**").authenticated())
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").anonymous())
 				.oauth2ResourceServer(o -> o.jwt(Customizer.withDefaults()))

@@ -54,8 +54,8 @@ class GroupServiceTest {
 
     @Test
     public void testFindAll() {
-        Group group1 = new Group("group1", Set.of("admin1", "admin2"));
-        Group group2 = new Group("group2", Set.of("admin3", "admin4"));
+        Group group1 = Group.builder().groupId("group1").adminUsers(Set.of("admin1", "admin2")).build();
+        Group group2 = Group.builder().groupId("group2").adminUsers(Set.of("admin3", "admin4")).build();
 
         groupService.insert(group1);
         groupService.insert(group2);
@@ -67,7 +67,7 @@ class GroupServiceTest {
 
     @Test
     public void testFindByGroupId_Success() {
-        Group group = new Group("group1", Set.of("admin1", "admin2"));
+        Group group = Group.builder().groupId("group1").adminUsers(Set.of("admin1", "admin2")).build();
         groupService.insert(group);
 
         Group foundGroup = groupService.findByGroupId(group.getGroupId());
@@ -83,7 +83,7 @@ class GroupServiceTest {
 
     @Test
     public void testInsert_GroupAlreadyExists() {
-        Group group = new Group("group1", new HashSet<>());
+        Group group = Group.builder().groupId("group1").adminUsers(new HashSet<>()).build();
         groupService.insert(group);
 
         assertThrows(BadRequestException.class, () -> {
@@ -93,7 +93,7 @@ class GroupServiceTest {
 
     @Test
     public void testDelete_Success() {
-        Group group = new Group("group1", new HashSet<>());
+        Group group = Group.builder().groupId("group1").adminUsers(new HashSet<>()).build();
         groupService.insert(group);
 
         groupService.delete("group1");
@@ -112,7 +112,7 @@ class GroupServiceTest {
     @Test
     public void testFindAdmins() {
         String admin = "admin1";
-        Group groupDora = new Group("dora", Set.of(admin, "admin2"));
+        Group groupDora = Group.builder().groupId("dora").adminUsers(Set.of(admin, "admin2")).build();
 
         groupService.insert(groupDora);
 
@@ -123,8 +123,8 @@ class GroupServiceTest {
     @Test
     public void testFindGroupsUserIsAdmin() {
         String admin = "admin1";
-        Group groupDora = new Group("dora", Set.of(admin, "admin2"));
-        Group groupDorit = new Group("dorit", Set.of("admin2"));
+        Group groupDora = Group.builder().groupId("dora").adminUsers(Set.of(admin, "admin2")).build();
+        Group groupDorit = Group.builder().groupId("dorit").adminUsers(Set.of("admin2")).build();
 
         groupService.insert(groupDora);
         groupService.insert(groupDorit);
@@ -135,7 +135,7 @@ class GroupServiceTest {
 
     @Test
     public void testInsertAdmins() {
-        Group group = new Group("group1", Set.of("admin2"));
+        Group group = Group.builder().groupId("group1").adminUsers(Set.of("admin2")).build();
         groupService.insert(group);
 
         Set<String> newAdmins = Set.of("admin1");
@@ -150,7 +150,7 @@ class GroupServiceTest {
         String adminToRemove = "admin1";
         String adminToKeep = "admin2";
         Set<String> admins = Set.of(adminToRemove, adminToKeep);
-        Group group = new Group("group1", admins);
+        Group group = Group.builder().groupId("group1").adminUsers(admins).build();
 
         groupService.insert(group);
         groupService.deleteAdmins(group.getGroupId(), Set.of(adminToRemove));
@@ -161,7 +161,7 @@ class GroupServiceTest {
 
     @Test
     public void testUpdateAdmins() {
-        Group group = new Group("group1", Set.of("admin3", "admin4"));
+        Group group = Group.builder().groupId("group1").adminUsers(Set.of("admin3", "admin4")).build();
         groupService.insert(group);
 
         Set<String> updatedAdmins = Set.of("admin2");
@@ -173,7 +173,7 @@ class GroupServiceTest {
 
     @Test
     public void testIsAdmin_Success() {
-        Group group = new Group("group1", Set.of("admin1", "admin2"));
+        Group group = Group.builder().groupId("group1").adminUsers(Set.of("admin1", "admin2")).build();
         groupService.insert(group);
 
         var isAdmin = groupService.isAdmin(group.getAdminUsers().stream().toList().get(0), group.getGroupId());
@@ -183,7 +183,7 @@ class GroupServiceTest {
 
     @Test
     public void testIsAdmin_UserNotAdmin() {
-        Group group = new Group("group1", Set.of("admin1", "admin2"));
+        Group group = Group.builder().groupId("group1").adminUsers(Set.of("admin1", "admin2")).build();
         groupService.insert(group);
 
         var isAdmin = groupService.isAdmin("userNotAdmin", group.getGroupId());

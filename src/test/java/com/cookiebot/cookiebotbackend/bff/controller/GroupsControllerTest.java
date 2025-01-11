@@ -54,8 +54,7 @@ class GroupsControllerTest {
 
     @Test
     void testGetMyGroups() throws Exception {
-        final var group = new Group();
-        group.setGroupId("group1");
+        final var group = Group.builder().groupId("group1").build();
 
         Jwt jwt = Jwt.withTokenValue("mock-token")
                 .header("alg", "RS256")

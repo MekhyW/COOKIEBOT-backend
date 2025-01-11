@@ -21,8 +21,11 @@ public class SwaggerConfiguration {
     public OpenAPI springShopOpenAPI(final Optional<GitProperties> gitProperties) {
         final var version = gitProperties.map(p -> p.get(GIT_BUILD_VERSION)).orElse("develop");
 
-        final var basicAuthRequirement = "basicAuth";
+        final var basicAuthRequirement = "User name and password";
         final var basicAuthScheme = new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic");
+
+        final var bearerAuthRequirement = "JWT token";
+        final var bearerAuthScheme = new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer");
 
         return new OpenAPI()
                 .info(new Info().title("Cookiebot backend API")
@@ -33,7 +36,10 @@ public class SwaggerConfiguration {
                         .description("Cookiebot backend README")
                         .url("https://github.com/MekhyW/COOKIEBOT-backend"))
                 .addSecurityItem(new SecurityRequirement().addList(basicAuthRequirement))
-                .components(new Components().addSecuritySchemes(basicAuthRequirement, basicAuthScheme));
+                .components(new Components()
+                        .addSecuritySchemes(basicAuthRequirement, basicAuthScheme)
+                        .addSecuritySchemes(bearerAuthRequirement, bearerAuthScheme)
+                );
     }
 
 }

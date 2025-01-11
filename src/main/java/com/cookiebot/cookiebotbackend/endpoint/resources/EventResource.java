@@ -53,4 +53,11 @@ public class EventResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/near/{xcoord}/{ycoord}/{distance}")
+    public ResponseEntity<List<Event>> findNear(@PathVariable Number xcoord, @PathVariable Float ycoord,
+            @PathVariable Float distance) {
+        List<Event> events = service.findNear(xcoord, ycoord, distance);
+        return ResponseEntity.ok().body(events);
+    }
 }

@@ -5,7 +5,7 @@ import com.cookiebot.cookiebotbackend.core.domains.Event;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-public interface EventRepository extends MongoRepository<Event, String> {
+public interface EventRepository extends MongoRepository<Event, String>, EventGeoRepository {
 
     Stream<Event> findAllByGroupIdIn(Collection<String> groupIds);
 

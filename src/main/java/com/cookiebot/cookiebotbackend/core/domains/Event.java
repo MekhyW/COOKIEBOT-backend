@@ -1,8 +1,10 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.NumberFormat;
+
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,8 +19,6 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event {
-
-    public static final String USER_FIELD = "username";
 
     @Id
     private String id;
@@ -43,6 +43,14 @@ public class Event {
 
     @NotBlank(message = "locationName is required")
     private String locationName;
+
+    @NotBlank(message = "Xcoordinate is required")
+    private Number Xcoordinate;
+
+    @NotBlank(message = "Ycoordinate is required")
+    private Number Ycoordinate;
+
+    private GeoJsonPoint location;
 
     private String coverImageUrl;
 

@@ -5,8 +5,11 @@ spring:
         jwt:
           jwk-set-uri: http://localhost:8000/.well-known/jwks.json
           issuer-uri: http://localhost:8000
-    user:
-      name: user
-      password: 1234
-      roles:
-        - ADMIN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus

@@ -1,11 +1,11 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.NumberFormat;
 
-
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -44,13 +44,14 @@ public class Event {
     @NotBlank(message = "locationName is required")
     private String locationName;
 
-    @NotBlank(message = "Xcoordinate is required")
-    private Number Xcoordinate;
+    // @Min(value = 0, message = "Xcoordinate is required")
+    // private double xcoord;
 
-    @NotBlank(message = "Ycoordinate is required")
-    private Number Ycoordinate;
+    // @Min(value = 0, message = "Ycoordinate is required")
+    // private double ycoord;
 
-    private GeoJsonPoint location;
+    @Valid
+    private GeoPoint location;
 
     private String coverImageUrl;
 

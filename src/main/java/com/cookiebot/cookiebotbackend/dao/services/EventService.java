@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 import com.cookiebot.cookiebotbackend.core.domains.Group;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.cookiebot.cookiebotbackend.core.domains.Event;
 import com.cookiebot.cookiebotbackend.dao.repository.EventRepository;
@@ -69,17 +68,19 @@ public class EventService {
 
     public List<Event> findNear(Number distance, Float xcoord,
             Float ycoord) {
-        return repository.aggregate([
-            {
-              $geoNear: {
-                 near: { type: "Point", coordinates: [ -73.99279 , 40.719296 ] },
-                 distanceField: "dist.calculated",
-                 minDistance: 2,
-                 query: { category: "Parks" },
-                 includeLocs: "dist.location",
-                 spherical: true
-              }
-            }
-         ]);
+
+        return repository.findAll();
+        // return repository.aggregate([
+        // {
+        // $geoNear: {
+        // near: { type: "Point", coordinates: [ -73.99279 , 40.719296 ] },
+        // distanceField: "dist.calculated",
+        // minDistance: 2,
+        // query: { category: "Parks" },
+        // includeLocs: "dist.location",
+        // spherical: true
+        // }
+        // }
+        // ]);
     }
 }

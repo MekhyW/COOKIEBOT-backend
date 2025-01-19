@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EventGeo extends Event {
     private Float distance;
-
 }

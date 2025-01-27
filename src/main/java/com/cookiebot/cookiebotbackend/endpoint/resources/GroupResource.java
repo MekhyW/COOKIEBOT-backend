@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ import com.cookiebot.cookiebotbackend.dao.services.GroupService;
 @RestController
 @RequestMapping(value = "/groups")
 public class GroupResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupResource.class);
 
     private final GroupService service;
 
@@ -68,6 +71,20 @@ public class GroupResource {
         group = service.insert(group);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).body(group);
+    }
+
+    @Operation(summary = "Upsert a group", description = "Updates a telegram group or create it if it does not exists")
+    @ApiResponses( value = {
+            @ApiResponse(responseCode = "200", description = "Success", content = {
+                    @Content(mediaType = "application/json", schema = @Schema(implementation = Group.class))
+            }),
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Group> upsert(@PathVariable String id, @RequestBody Group group) {
+        LOGGER.info("Upsertting group '{}' name '{}'", group.getGroupId(), group.getName());
+
+        group.setGroupId(id);
+        return ResponseEntity.ok().body(service.upsert(group));
     }
 
     @Operation(summary = "Delete a group", description = "Deletes a telegram group")

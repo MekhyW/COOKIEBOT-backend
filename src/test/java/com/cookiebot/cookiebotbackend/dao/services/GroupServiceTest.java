@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -196,5 +197,27 @@ class GroupServiceTest {
         var isAdmin = groupService.isAdmin("user", "group");
 
         assertFalse(isAdmin);
+    }
+
+    @Test
+    public void testUpsert() {
+        var group = Group.builder().groupId("group1").adminUsers(Set.of("admin2")).build();
+
+        Consumer<Group> validations = (Group g) -> {
+            assertEquals(group.getGroupId(), g.getGroupId());
+            assertEquals(group.getAdminUsers(), g.getAdminUsers());
+            assertEquals(group.getName(), g.getName());
+        };
+
+        var actualGroup = groupService.upsert(group);
+        validations.accept(actualGroup);
+
+        for (int i = 0; i < 3; i++) {
+            actualGroup = groupService.upsert(actualGroup);
+            validations.accept(actualGroup);
+        }
+
+        List<Group> foundGroups = groupService.findAll();
+        assertThat(foundGroups).containsExactly(group);
     }
 }

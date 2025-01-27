@@ -3,7 +3,11 @@ package com.cookiebot.cookiebotbackend.dao.services;
 import java.util.*;
 import java.util.stream.Stream;
 
+import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +21,7 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 
 @Service
 public class GroupService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(GroupService.class);
 
 	private final GroupRepository repository;
 	private final MongoOperations mongoOperations;
@@ -98,5 +103,22 @@ public class GroupService {
 		var result = this.mongoOperations.count(query, Group.class);
 
 		return result > 0;
+	}
+
+	public Group upsert(Group group) {
+		LOGGER.debug("Upsertting group with ID {}", group.getGroupId());
+
+		final var findAndModifyOptions = new FindAndModifyOptions().upsert(true).returnNew(true);
+		final var query = new Query(Criteria.where(Group.GROUP_ID_FIELD).is(group.getGroupId()));
+		final var update = new Update();
+
+		Document document = (Document) this.mongoOperations.getConverter().convertToMongoType(group);
+		document.forEach(update::set);
+
+		final var updatedGroup = this.mongoOperations.findAndModify(query, update, findAndModifyOptions, Group.class);
+
+		LOGGER.debug("Successfully upserted group with ID {}", group.getGroupId());
+
+		return updatedGroup;
 	}
 }

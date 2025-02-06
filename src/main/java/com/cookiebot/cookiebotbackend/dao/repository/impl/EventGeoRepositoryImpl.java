@@ -2,6 +2,7 @@ package com.cookiebot.cookiebotbackend.dao.repository.impl;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
@@ -14,6 +15,7 @@ import com.cookiebot.cookiebotbackend.core.domains.EventGeo;
 import com.cookiebot.cookiebotbackend.dao.repository.EventGeoRepository;
 
 @Component
+@Primary
 public class EventGeoRepositoryImpl implements EventGeoRepository {
 
   private MongoOperations mongoOperations;
@@ -29,6 +31,9 @@ public class EventGeoRepositoryImpl implements EventGeoRepository {
 
     Aggregation aggregate = Aggregation.newAggregation(geoNear);
 
+    System.out.println(aggregate.toString());
+
+    // TODO: Define index
     AggregationResults<EventGeo> orderAggregate = mongoOperations.aggregate(aggregate, Event.class, EventGeo.class);
 
     return orderAggregate.getMappedResults();

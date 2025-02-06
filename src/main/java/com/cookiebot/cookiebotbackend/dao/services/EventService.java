@@ -9,6 +9,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Event;
+import com.cookiebot.cookiebotbackend.core.domains.EventGeo;
+import com.cookiebot.cookiebotbackend.dao.repository.EventGeoRepository;
 import com.cookiebot.cookiebotbackend.dao.repository.EventRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
@@ -17,10 +19,12 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 public class EventService {
 
     private final EventRepository repository;
+    private final EventGeoRepository geoRepository;
     private final GroupService groupService;
 
-    public EventService(EventRepository repository, GroupService groupService) {
+    public EventService(EventRepository repository, EventGeoRepository geoRepository, GroupService groupService) {
         this.repository = repository;
+        this.geoRepository = geoRepository;
         this.groupService = groupService;
     }
 
@@ -66,21 +70,8 @@ public class EventService {
         return repository.save(event);
     }
 
-    public List<Event> findNear(Number distance, Float xcoord,
-            Float ycoord) {
+    public List<EventGeo> findNear(Double xcoord, Double ycoord, Double distance) {
 
-        return repository.findAll();
-        // return repository.aggregate([
-        // {
-        // $geoNear: {
-        // near: { type: "Point", coordinates: [ -73.99279 , 40.719296 ] },
-        // distanceField: "dist.calculated",
-        // minDistance: 2,
-        // query: { category: "Parks" },
-        // includeLocs: "dist.location",
-        // spherical: true
-        // }
-        // }
-        // ]);
+        return geoRepository.findNear(xcoord, ycoord, distance);
     }
 }

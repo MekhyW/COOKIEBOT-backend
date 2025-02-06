@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cookiebot.cookiebotbackend.core.domains.Event;
+import com.cookiebot.cookiebotbackend.core.domains.EventGeo;
 import com.cookiebot.cookiebotbackend.dao.services.EventService;
 
 import jakarta.validation.Valid;
@@ -55,9 +56,9 @@ public class EventResource {
     }
 
     @GetMapping(value = "/near/{xcoord}/{ycoord}/{distance}")
-    public ResponseEntity<List<Event>> findNear(@PathVariable Number xcoord, @PathVariable Float ycoord,
-            @PathVariable Float distance) {
-        List<Event> events = service.findNear(xcoord, ycoord, distance);
+    public ResponseEntity<List<EventGeo>> findNear(@PathVariable Double xcoord, @PathVariable Double ycoord,
+            @PathVariable Double distance) {
+        List<EventGeo> events = service.findNear(xcoord, ycoord, distance);
         return ResponseEntity.ok().body(events);
     }
 }

@@ -18,22 +18,20 @@ import com.cookiebot.cookiebotbackend.dao.repository.EventGeoRepository;
 @Primary
 public class EventGeoRepositoryImpl implements EventGeoRepository {
 
-  private MongoOperations mongoOperations;
+  private final MongoOperations mongoOperations;
 
   public EventGeoRepositoryImpl(MongoOperations mongoOperations) {
     this.mongoOperations = mongoOperations;
   }
 
   @Override
-  public List<EventGeo> findNear(double coordx, double coordy, double distance) {
-
-    GeoNearOperation geoNear = new GeoNearOperation(NearQuery.near(coordx, coordy).maxDistance(distance), "distance");
+  public List<EventGeo> findNear(double lat, double lon, double distance) {
+    NearQuery nearQuery = NearQuery.near(lat, lon).inKilometers().maxDistance(distance);
+    GeoNearOperation geoNear = new GeoNearOperation(nearQuery, EventGeo.DISTANCE_FIELD)
+            .useIndex(Event.LOCATION_FIELD);
 
     Aggregation aggregate = Aggregation.newAggregation(geoNear);
 
-    System.out.println(aggregate.toString());
-
-    // TODO: Define index
     AggregationResults<EventGeo> orderAggregate = mongoOperations.aggregate(aggregate, Event.class, EventGeo.class);
 
     return orderAggregate.getMappedResults();

@@ -1,6 +1,9 @@
 package com.cookiebot.cookiebotbackend.core.domains;
 
+import lombok.Builder;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -11,13 +14,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+
 
 @Document(collection = "events")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Event {
+    public static final String LOCATION_FIELD = "location";
 
     @Id
     private String id;
@@ -43,13 +50,8 @@ public class Event {
     @NotBlank(message = "locationName is required")
     private String locationName;
 
-    // @Min(value = 0, message = "Xcoordinate is required")
-    // private double xcoord;
-
-    // @Min(value = 0, message = "Ycoordinate is required")
-    // private double ycoord;
-
     @Valid
+    @GeoSpatialIndexed(name=LOCATION_FIELD, type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoPoint location;
 
     private String coverImageUrl;
@@ -62,7 +64,7 @@ public class Event {
 
     @NumberFormat
     @NotNull(message = "price is required")
-    private Integer price;
+    private BigDecimal price;
 
-    private Boolean active = true;
+    private boolean active = true;
 }

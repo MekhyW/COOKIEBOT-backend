@@ -4,13 +4,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.cookiebot.cookiebotbackend.core.domains.EventGeo;
 import com.cookiebot.cookiebotbackend.core.domains.Group;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Event;
-import com.cookiebot.cookiebotbackend.core.domains.EventGeo;
-import com.cookiebot.cookiebotbackend.dao.repository.EventGeoRepository;
 import com.cookiebot.cookiebotbackend.dao.repository.EventRepository;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.BadRequestException;
 import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundException;
@@ -19,12 +18,10 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 public class EventService {
 
     private final EventRepository repository;
-    private final EventGeoRepository geoRepository;
     private final GroupService groupService;
 
-    public EventService(EventRepository repository, EventGeoRepository geoRepository, GroupService groupService) {
+    public EventService(EventRepository repository, GroupService groupService) {
         this.repository = repository;
-        this.geoRepository = geoRepository;
         this.groupService = groupService;
     }
 
@@ -70,8 +67,7 @@ public class EventService {
         return repository.save(event);
     }
 
-    public List<EventGeo> findNear(Double xcoord, Double ycoord, Double distance) {
-
-        return geoRepository.findNear(xcoord, ycoord, distance);
+    public List<EventGeo> findNear(Double lat, Double lon, Double distance) {
+        return repository.findNear(lat, lon, distance);
     }
 }

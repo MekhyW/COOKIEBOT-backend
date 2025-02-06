@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.PersistenceCreator;
 
 @Data
 @AllArgsConstructor
@@ -13,4 +14,9 @@ public class GeoPoint {
 
     @Size(min=2, max=2)
     private Double[] coordinates;
+
+    @PersistenceCreator
+    public GeoPoint(String type, Double[] coordinates) {
+        this.coordinates = coordinates;
+    }
 }

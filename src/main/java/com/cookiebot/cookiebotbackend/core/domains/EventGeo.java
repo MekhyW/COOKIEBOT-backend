@@ -8,5 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventGeo extends Event {
-    private Float distance;
+    public static final String DISTANCE_FIELD = "distance";
+
+    private Double distance;
 }

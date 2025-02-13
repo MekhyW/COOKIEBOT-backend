@@ -1,26 +1,5 @@
 package com.cookiebot.cookiebotbackend.bff.controller;
 
-import com.cookiebot.cookiebotbackend.bff.service.AuthorizationService;
-import com.cookiebot.cookiebotbackend.core.domains.Config;
-import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
-import com.cookiebot.cookiebotbackend.dao.services.GroupService;
-import com.cookiebot.cookiebotbackend.test.BffControllerTest;
-import com.cookiebot.cookiebotbackend.utils.BeanUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.core.Is;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -29,6 +8,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.hamcrest.core.Is;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.cookiebot.cookiebotbackend.bff.service.AuthorizationService;
+import com.cookiebot.cookiebotbackend.core.domains.Config;
+import com.cookiebot.cookiebotbackend.dao.services.ConfigService;
+import com.cookiebot.cookiebotbackend.dao.services.GroupService;
+import com.cookiebot.cookiebotbackend.test.BffControllerTest;
+import com.cookiebot.cookiebotbackend.utils.BeanUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @BffControllerTest
@@ -43,10 +44,10 @@ class ConfigsControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private GroupService groupService;
 
-    @MockBean
+    @MockitoBean
     private ConfigService configService;
 
     @BeforeEach

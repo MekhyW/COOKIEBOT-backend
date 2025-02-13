@@ -18,7 +18,7 @@ public class SwaggerConfiguration {
     private static final String GIT_BUILD_VERSION = "build.version";
 
     @Bean
-    public OpenAPI springShopOpenAPI(final Optional<GitProperties> gitProperties) {
+    OpenAPI springShopOpenAPI(final Optional<GitProperties> gitProperties) {
         final var version = gitProperties.map(p -> p.get(GIT_BUILD_VERSION)).orElse("develop");
 
         final var basicAuthRequirement = "User name and password";

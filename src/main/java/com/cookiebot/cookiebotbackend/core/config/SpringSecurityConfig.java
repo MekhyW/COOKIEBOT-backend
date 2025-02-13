@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SpringSecurityConfig {
 
 	@Bean
-	public UserDetailsService userDetailsService(SecurityProperties securityProperties) {
+	UserDetailsService userDetailsService(SecurityProperties securityProperties) {
 		final var user = securityProperties.getUser();
 
 		User.UserBuilder userBuilder = User.withDefaultPasswordEncoder()
@@ -35,7 +35,7 @@ public class SpringSecurityConfig {
 	}
 
 	@Bean
-	public UrlBasedCorsConfigurationSource corsConfiguration(final CorsConfig config) {
+	UrlBasedCorsConfigurationSource corsConfiguration(final CorsConfig config) {
 		final var cors = new CorsConfiguration()
 				.setAllowedOriginPatterns(config.getAllowedOrigins());
 		cors.setAllowedHeaders(config.getAllowedHeaders());
@@ -51,7 +51,7 @@ public class SpringSecurityConfig {
 	
 	@Bean
 	@Order(1)
-	public SecurityFilterChain basicAuthSecurity(HttpSecurity http, UrlBasedCorsConfigurationSource cors) throws Exception {
+	SecurityFilterChain basicAuthSecurity(HttpSecurity http, UrlBasedCorsConfigurationSource cors) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 				.securityMatcher("/bff/**", "/v3/api-docs/**", "/swagger-ui/**", "/actuator/health", "/actuator/prometheus")
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/bff/**").authenticated())
@@ -68,7 +68,7 @@ public class SpringSecurityConfig {
 
 	@Bean
 	@Order(2)
-	public SecurityFilterChain jwtAuthSecurity(HttpSecurity http) throws Exception {
+	SecurityFilterChain jwtAuthSecurity(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth.anyRequest().hasRole("ADMIN"))
 				.httpBasic(Customizer.withDefaults())

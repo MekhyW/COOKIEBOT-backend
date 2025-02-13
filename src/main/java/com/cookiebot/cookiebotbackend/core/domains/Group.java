@@ -23,5 +23,7 @@ public class Group {
     private String groupId;
     private String name;
     private String imageUrl;
+    
+    @Builder.Default
     private Set<String> adminUsers = new HashSet<>();
 }

@@ -1,9 +1,12 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.cookiebot.cookiebotbackend.core.domains.Register;
@@ -16,9 +19,11 @@ import com.cookiebot.cookiebotbackend.dao.services.exceptions.ObjectNotFoundExce
 public class RegisterService {
 	
 	private final RegisterRepository repository;
+	private final MongoOperations mongoOperations;
 	
-	public RegisterService(RegisterRepository repository) {
+	public RegisterService(RegisterRepository repository, MongoOperations mongoOperations) {
 		this.repository = repository;
+		this.mongoOperations = mongoOperations;
 	}
 	
 	public List<Register> findAll() {
@@ -48,85 +53,79 @@ public class RegisterService {
 		return register.getUsers();
 	}
 	
+	
 	public void insertUser(String id, UserRegister user) {
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
-		Register register = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		List<UserRegister> userList = new ArrayList<>(register.getUsers());
-		Integer userSize = userList.size();
+		repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		for (int userArray = userSize - 1; userArray >= 0; userArray--) {
-			String currentUser = userList.get(userArray).getUser();
-			if (currentUser == null) {
-				continue;
-			}
-			if (currentUser.matches(user.getUser())) {
-				throw new BadRequestException("User Already Exists");
-			}
+		Query queryCheck = new Query(
+		    Criteria.where("_id").is(id)
+		            .and("users").elemMatch(Criteria.where(UserRegister.USER_FIELD).is(user.getUser()))
+		);
+		    
+		boolean exists = mongoOperations.exists(queryCheck, Register.class);
+		
+		if (exists) {
+		    throw new BadRequestException("User already exists");
 		}
 		
-		userList.addAll(Arrays.asList(user));
-		register.setUsers(userList);
-		repository.save(register);
+		final Query query = new Query(Criteria.where("_id").is(id));
+		final Update update = new Update().addToSet("users", user);
+		
+		this.mongoOperations.updateFirst(query, update, Register.class);
 	}
+	
 	
 	public void deleteUser(String id, UserRegister user) {
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
-		Register register = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		List<UserRegister> userList = new ArrayList<>(register.getUsers());
-		String userToDelete = user.getUser();
-		Integer userSize = userList.size();
+		repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		boolean foundUser = false;
-		for (int userArray = userSize - 1; userArray >= 0; userArray--) {
-			String currentUser = userList.get(userArray).getUser();
-			if (currentUser == null) {
-				continue;
-			}
-			if (currentUser.matches(userToDelete)) {
-				foundUser = true;
-				userList.remove(userArray);
-				register.setUsers(userList);
-				repository.save(register);
-			}
-		}
+		final Criteria filterUser = Criteria.where(UserRegister.USER_FIELD)
+				.is(user.getUser());
 		
-		if (!foundUser) {
-			throw new ObjectNotFoundException("User Not Found");
-		}
+		final Query query = new Query(
+				Criteria.where("_id").is(id).and("users").elemMatch(filterUser));
+		
+		final Update update = new Update().pull("users",
+				Map.of(UserRegister.USER_FIELD, user.getUser()));
+		
+		this.mongoOperations.updateFirst(query, update, Register.class);
 	}
+	
 	
 	public void updateUser(String id, UserRegister user) {
 		if (user.getUser() == null) {
 			throw new BadRequestException("User Must Not Be Null");
 		}
-		Register register = repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		List<UserRegister> userList = new ArrayList<>(register.getUsers());
-		Integer userSize = userList.size();
+		repository.findById(id).orElseThrow(ObjectNotFoundException::new);
 		
-		boolean foundUser = false;
-		for (int userArray = userSize - 1; userArray >= 0; userArray--) {
-			String currentUser = userList.get(userArray).getUser();
-			if (currentUser == null) {
-				continue;
-			}
-			if (currentUser.matches(user.getUser())) {
-				foundUser = true;
-				userList.remove(userArray);
-				userList.addAll(Arrays.asList(user));
-				register.setUsers(userList);
-				repository.save(register);
-			}
-		}
-		
-		if (!foundUser) {
-			throw new ObjectNotFoundException("User Not Found");
+		Query queryCheck = new Query(
+				Criteria.where("_id").is(id)
+			    .and("users").elemMatch(Criteria.where(UserRegister.USER_FIELD).is(user.getUser()))
+		);
+			    
+		boolean exists = mongoOperations.exists(queryCheck, Register.class);
+			
+		if (exists) {
+			final Criteria filterUser = Criteria.where(UserRegister.USER_FIELD)
+					.is(user.getUser());
+			
+			final Query query = new Query(
+					Criteria.where("_id").is(id).and("users").elemMatch(filterUser));
+			
+			final Update update = new Update().set("users.$", user);
+			
+			this.mongoOperations.updateFirst(query, update, Register.class);
+			
+		} else {
+			this.insertUser(id, user);
 		}
 	}
 }

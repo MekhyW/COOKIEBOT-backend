@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.cookiebot.cookiebotbackend.core.domains.User;
 
@@ -11,4 +12,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 	  
     List<User> findByUsername(String username);
 	List<User> findByBirthdateBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
+	
+	@Query("SELECT u FROM User u WHERE MONTH(u.birthdate) = :month AND DAY(u.birthdate) = :day")
+	List<User> findByBirthdateMonthAndDay(int month, int day);
 }

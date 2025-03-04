@@ -13,6 +13,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     List<User> findByUsername(String username);
 	List<User> findByBirthdateBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
 	
-	@Query("SELECT u FROM User u WHERE MONTH(u.birthdate) = :month AND DAY(u.birthdate) = :day")
+	@Query("{ '$expr': { '$and': [ { '$eq': [ { '$dayOfMonth': '$birthdate' }, ?1 ] }, { '$eq': [ { '$month': '$birthdate' }, ?0 ] } ] } }")
 	List<User> findByBirthdateMonthAndDay(int month, int day);
 }

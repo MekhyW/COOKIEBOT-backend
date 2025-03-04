@@ -1,6 +1,8 @@
 package com.cookiebot.cookiebotbackend.dao.services;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,10 +28,10 @@ public class UserService {
             return repository.findByUsername(username.get());
           
         } else if (birthdate.isPresent()) {
-            LocalDate date = birthdate.get();
-            int month = date.getMonthValue();
-            int day = date.getDayOfMonth();
+        	int month = birthdate.get().getMonthValue();
+            int day = birthdate.get().getDayOfMonth();            
             return repository.findByBirthdateMonthAndDay(month, day);
+            
     	} else {
             return repository.findAll();
         }

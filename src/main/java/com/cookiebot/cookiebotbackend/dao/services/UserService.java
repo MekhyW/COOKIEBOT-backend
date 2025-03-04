@@ -28,8 +28,8 @@ public class UserService {
             return repository.findByUsername(username.get());
           
         } else if (birthdate.isPresent()) {
-        	int month = birthdate.get().getMonthValue();
-            int day = birthdate.get().getDayOfMonth();            
+            int month = birthdate.get().getMonthValue();
+            int day = birthdate.get().getDayOfMonth();
             return repository.findByBirthdateMonthAndDay(month, day);
             
     	} else {

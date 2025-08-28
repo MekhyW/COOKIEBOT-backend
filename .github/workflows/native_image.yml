@@ -1,0 +1,56 @@
+name: GraalVM Native Image builds
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Native Image on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Install musl tools (Linux only)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+          sudo cp /usr/lib/x86_64-linux-gnu/libz* /usr/lib/x86_64-linux-musl/
+
+      - name: Build native image (Linux with musl)
+        run: |
+          mvn -Pnative package
+        env:
+          GRAALVM_HOME: ${{ env.JAVA_HOME }}
+
+      - name: Get artifact name (Linux)
+        if: runner.os == 'Linux'
+        id: artifact-name-linux
+        run: |
+          ARTIFACT_NAME=$(find target -name "*-runner" -type f | head -1)
+          echo "artifact-path=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+          echo "artifact-name=$(basename $ARTIFACT_NAME)" >> $GITHUB_OUTPUT
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-binary-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            ${{ steps.artifact-name-linux.outputs.artifact-path }}
+          retention-days: 30

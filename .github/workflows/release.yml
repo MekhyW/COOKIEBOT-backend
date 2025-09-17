@@ -1,0 +1,86 @@
+name: Release new version
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    outputs:
+      changelog: ${{ steps.generate-changelog.outputs.content }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate the changelog
+        uses: orhun/git-cliff-action@v4
+        id: generate-changelog
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
+
+  build:
+    name: Native Image on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          native-image-job-reports: 'true'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Install musl tools (Linux only)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+          sudo cp /usr/lib/x86_64-linux-gnu/libz* /usr/lib/x86_64-linux-musl/
+
+      - name: Build native image (Linux with musl)
+        run: |
+          mvn -Pnative package
+        env:
+          GRAALVM_HOME: ${{ env.JAVA_HOME }}
+
+      - name: Upload native binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: cookiebot-backend-${{ matrix.os }}
+          path: target/cookiebot-backend
+
+  publish:
+    needs: [changelog, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download native binary
+        uses: actions/download-artifact@v4
+        with:
+          name: cookiebot-backend-ubuntu-latest
+          path: target/
+
+      - name: Publish to GitHub
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/cookiebot-backend
+          file_glob: false
+          overwrite: true
+          tag: ${{ github.ref }}
+          release_name: "Release ${{ github.ref }}"
+          body: "${{ needs.changelog.outputs.changelog }}"
